@@ -215,7 +215,9 @@ what it showed:
   - side note: the encoder's *thought* text quotes gold sql. in the batch runner that thought never goes to the agent (only the `<s>` action does), but worth knowing.
 - so for this (hardened) prompt: listed ambiguity -> AMB, unlisted-but-"valuable" -> mostly UNA, LOC only for a very concrete single-clause thing like a row limit.
 
-still to do: same probes against the batch runner's v2 encoder prompt (no "you don't have access to the solution" line), and raise the token cap so the pole question can actually finish.
+note: leaving the 2048 token cap as-is on purpose. it's the tool's default, so the truncation is part of how usersim-guard behaves with this model, not something to tune away.
+
+still to do: same probes against the batch runner's v2 encoder prompt (no "you don't have access to the solution" line).
 
 ---
 
