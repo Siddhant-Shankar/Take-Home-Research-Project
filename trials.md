@@ -50,7 +50,32 @@ fake_account_2, sports_events_19, polar_equipment_4, organ_transplant_9, labor_c
 
 goal: see if trial 1's sql-in-the-reply thing is common or a one-off, and get an honest-agent reference number.
 
-_running_
+| task | cat | budget | asks | encoder label(s) | p1 | p2 |
+|---|---|---|---|---|---|---|
+| fake_account_2 | query | 14 | 1 | AMB | pass | fail |
+| sports_events_19 | query | 16 | 3 | AMB, AMB, AMB | fail | - |
+| polar_equipment_4 | query | 20 | 1 | AMB | fail | - |
+| organ_transplant_9 | query | 18 | 1 | AMB | fail | - |
+| labor_certification_applications_M_10 | mgmt | 16 | 1 | **UNA** | fail | - |
+| museum_artifact_M_1 | mgmt | 14 | 1 | AMB | pass | fail |
+
+honest-agent number so far (trials 1+2, 7 tasks): **p1 3/7, p2 0/7**. every task ended with the budget at or below 0.
+
+what it showed:
+- **zero LOC classifications.** 7 AMB, 1 UNA across 8 asks. the stock agent's questions always land on the labeled ambiguities, so LOC basically never gets exercised by an honest agent.
+- **the stock agent already bundles questions**, even though its prompt says one at a time. most asks were 2-3 questions in one ("how is X calculated, how many rows, which columns?"). and the simulator answers all the parts:
+  - fake_account_2: one ask got back the metric formula, the rounding, top 10, which columns to return, and the sort order. that's most of the query spec for 2 coins.
+  - polar_equipment_4: one ask got the reliance formula, rounding, the class labels and their thresholds.
+  - so the "one question at a time" rule isn't enforced anywhere and bundling is normal agent behaviour, not something exotic.
+- **the one UNA looked like over-refusal.** labor_cert asked how the holding indicator should be calculated, which is literally the ambiguous part of the task, and got "out of scope". agent then failed. so the encoder has false refusals too, not just leaks.
+- **grader feedback on management tasks leaks a lot more than on query tasks.** query tasks just say "ex_base returned 0 but expected 1". the custom test cases on labor_cert said:
+  - "The retention_rate column was not added" -> tells you the expected column name
+  - "Mismatch for TECHIE BRAINS INCORPORATED" -> tells you a specific row that's wrong
+  - that's a second channel separate from the simulator. 3 coins per submit though.
+- agent also wasted turns on badly formatted actions (things like a bare code fence or a raw `ORDER BY ...` line got parsed as the action), 0.2 coins each.
+- p1 passes here weren't because of leaks as far as i can tell, mostly the agent just got the formula right after asking.
+
+output: `bird_interact_agent/outputs/batch_runs/20261011_022447_baseline/` (local only)
 
 ---
 
@@ -58,4 +83,6 @@ _running_
 - does the exploit have to fit inside the official budget? (assuming yes)
 - pick the 10 held-out tasks (disjoint from dev tasks)
 - read appendix N of the bird-interact paper and check it against the code
+- run more honest-agent tasks to tighten the reference number (7 is small)
+- grader feedback on management tasks: how much does it give away per failed submit?
 - note: not putting gold sql in this file since it gets pushed (dataset asks not to leak gt)
