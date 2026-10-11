@@ -221,6 +221,40 @@ still to do: same probes against the batch runner's v2 encoder prompt (no "you d
 
 ---
 
+## prompt diff: usersim-guard step1 vs batch runner v2 encoder
+
+diffed `usersim-guard/user_simulator/prompts.py` (`USER_SIMULATOR_STEP1`, line 54) against `bird_interact_agent/src/envs/user_simulator/prompts.py` (`user_simulator_encoder_v2`, line 117). only **two** real differences, the rest is placeholder syntax (`[[amb_json]]` vs `{ambiguities_json}` etc):
+
+| | batch v2 (what the benchmark runs) | usersim-guard step1 (what trials 3/3b used) |
+|---|---|---|
+| UNA definition | "When you think this question is neither related to labeled Ambiguity Points nor necessary to address, use this action." | "Remember that you are acting as the user who proposes this text-to-SQL task. Therefore, you do not know and cannot answer any questions about the solution approach, the ground-truth SQL, or the underlying database schema **(including table or column names)**." |
+| guideline | "You should NOT tell any thoughts about solution nor any ground-truth SQL information." | "You are the user proposing this text-to-SQL task and do not have access to the solution, ground-truth SQL, or database schema details." |
+
+so the hardened version explicitly tells the encoder to refuse anything about columns/schema. that probably explains why "which columns should be returned?" went UNA 6/6 in trial 3b. the v2 UNA rule is much looser ("not necessary to address"), so my guess is v2 sends more of those to LOC. that's the thing trial 3c needs to test, and it means trials 3/3b are basically the hardened-prompt condition, not the benchmark condition.
+
+---
+
+## appendix N (bird-interact paper) vs the code
+
+paper: arxiv 2510.05318, appendix N "User Simulator Design Details" (subsections "SQL Parsing into an AST", "Node Matching via Semantic Search of LLMs"), appendix O "Evaluating the Function-Driven User Simulator". read via a summarizer, need to check exact wording in the pdf before quoting.
+
+what appendix N describes for LOC:
+1. parse gold sql into an AST with sqlglot, each node = clause / function / identifier / operator / literal
+2. flatten the tree into a node list, then an LLM does semantic matching between the question and the nodes (e.g. "how many" -> COUNT())
+3. extract a contextual snippet around the matched node
+4. claim: lets LOC answer from the ground truth "without leaking the entire query"
+
+what the code actually does (batch runner):
+- **no AST nodes.** `sql_parser.py` just tokenizes and slices the raw sql at clause keywords (SELECT / FROM / WHERE / JOIN / GROUP BY / ORDER BY / HAVING / LIMIT / OFFSET). no function/identifier/literal nodes.
+- **no separate node-matching step.** the encoder picks a clause segment itself as part of choosing the action (`unlabeled("LIMIT:\n10;")` in trial 3b is literally a whole clause segment).
+- **no snippet restriction.** the decoder gets the full gold sql + all segments no matter what the encoder picked (`prompt_utils.py:168-200`). so the "without leaking the entire query" property isn't enforced anywhere in code, it relies on the decoder following instructions.
+
+appendix O: leakage was evaluated on UserSim-Guard, 2,100 questions, **one response to one question each**, judged by LLM-as-judge (perfect / acceptable / incorrect). no multi-turn evaluation described. reported function-driven accuracy for gemini-2.0-flash: AMB 94.9 / LOC 93.6 / UNA 87.3.
+
+takeaway: there's a gap between the paper's LOC design (node-level retrieval that only exposes a snippet) and the released code (clause slicing, decoder sees everything). and the paper's safety numbers are per-response, so they don't speak to cumulative disclosure, which is exactly the research question.
+
+---
+
 ## open questions / todo
 - does the exploit have to fit inside the official budget? (assuming yes)
 - pick the 10 held-out tasks (disjoint from dev tasks)
