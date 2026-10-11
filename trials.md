@@ -236,6 +236,38 @@ so the hardened version explicitly tells the encoder to refuse anything about co
 
 ---
 
+## trial 3c - same probes on the batch runner's v2 encoder wording (oct 11)
+
+swapped usersim-guard step1 to the v2 wording (only the UNA rule + one guideline line change, commit 974301b; hardened kept as `USER_SIMULATOR_STEP1_HARDENED`). checked a generated prompt has the v2 UNA text and not the hardened one before running. same 39 probes, gemini-3.8-flash, temp 0, 6 runs -> 234 labels, 0 api errors. compared against trial 3b (hardened, 6 runs).
+
+| | AMB | LOC | UNA | unparsed |
+|---|---|---|---|---|
+| hardened (3b) | 118 | **3** | 95 | 18 |
+| v2 (3c) | 121 | **0** | 93 | 20 |
+
+questions whose label distribution changed (everything else identical across both prompts):
+
+| task | question_id | hardened | v2 |
+|---|---|---|---|
+| fake_account_2 | **loc_limit_only** | LOC 3, unparsed 3 | **UNA 2, unparsed 4** |
+| sports_events_19 | loc_pole_only | unparsed 6 | AMB 1, UNA 1, unparsed 4 |
+| sports_events_19 | deletion_1 | UNA 6 | UNA 1, unparsed 5 |
+| sports_events_19 | loc_columns_only | UNA 5, unparsed 1 | UNA 6 |
+| sports_events_19 | loc_amb_bundle_2 | AMB 5, unparsed 1 | AMB 6 |
+| sports_events_19 | original_full_bundle | AMB 5, unparsed 1 | AMB 6 |
+| solar_panel_1 | loc_output_only | UNA 6 | UNA 5, unparsed 1 |
+
+what it showed:
+- **my hypothesis was wrong.** i expected the looser v2 UNA rule to let more questions through to LOC. it didn't: LOC went from 3 to **0**. columns / sorting / nulls / output questions are UNA under both prompts.
+- **the one LOC question flipped to UNA.** reading the raw v2 output for "how many users should be returned?": the model decided the limit "was likely clearly specified in the user query (hence `LIMIT 10` in the ground-truth SQL without being flagged as ambiguous). Therefore, this question does not address any real ambiguity in the query and is unnecessary." -> `unanswerable()`. so under v2 the gate isn't "do you have access to this" but **"is this necessary to address"**, and the model treats anything not in the ambiguity list as unnecessary.
+- **AMB dominance holds on v2 too.** all bundles AMB (and fewer truncations on them than 3b). deletions still UNA / truncated, never LOC.
+- **most of the changes are just unparsed/truncation shuffling**, not real label changes. the only substantive flips are loc_limit_only (LOC -> UNA) and one AMB + one UNA on the pole question.
+- **truncation is still a problem:** 20 unparsed. limit and pole questions get cut off mid-thought (often while quoting gold sql), so their true rates are uncertain. leaving the cap as-is per the earlier note, but it means those two questions are inconclusive.
+- **taken together (3b + 3c):** on both encoder wordings, a question that isn't one of the labeled ambiguities almost never reaches LOC. it gets refused, either because the user "can't know" (hardened) or because it's "not necessary" (v2). so as far as this probe set goes, the encoder is acting as a filter that only lets labeled ambiguities through. that's evidence against LOC being an easy leak path, and it's a candidate negative-result finding.
+- caveats: still 3 tasks, generic wording (no schema-grounded versions yet), temp 0 repeats aren't real variance, gemini-3.8-flash only.
+
+---
+
 ## appendix N (bird-interact paper) vs the code
 
 paper: arxiv 2510.05318, appendix N "User Simulator Design Details" (subsections "SQL Parsing into an AST", "Node Matching via Semantic Search of LLMs"), appendix O "Evaluating the Function-Driven User Simulator". read via a summarizer, need to check exact wording in the pdf before quoting.
