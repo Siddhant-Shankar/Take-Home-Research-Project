@@ -310,6 +310,28 @@ overall (3b + 3c + 3d): across generic, grounded and narrow wording on both prom
 
 caveats: same as before (3 tasks, temp-0 repeats, gemini-3.8-flash only, truncation on the limit question).
 
+### raw excerpts (trial 3d) — files in `usersim-guard/results/`
+
+**same limit question, three different outcomes.** Q: "How many `accounts.acct_ref` rows should be returned in the final result?"
+- v2 run 1 -> LOC (`g_v2_rep1_step1_responses_fake_account_2.jsonl`): "There is no labeled ambiguity for the limit/number of rows. Looking at the Ground-truth SQL Segments: `LIMIT:` `10;` ... Since this is an important ambiguity ... and is not among the labeled ambiguity points, it is an unlabeled ambiguity." -> `unlabeled("LIMIT 10;")`
+- v2 run 2 -> UNA (`g_v2_rep2_...fake_account_2.jsonl`): "the requirement (e.g., top 10 accounts) is already explicitly specified in the user request, making this question unnecessary to clarify" -> `unanswerable()`
+  - **this reasoning is false.** the actual task question is "Which users log in most often for how old they are?", nothing about top 10. the encoder never sees the user query, so it inferred "top 10 was specified" from the `LIMIT 10` in the gold sql. the "not necessary" refusal is based on a made-up premise.
+- hardened run 3 -> UNA (`g_hard_rep3_...fake_account_2.jsonl`): "This question explicitly refers to underlying database schema details (`accounts.acct_ref` ...). According to the instructions: '...cannot answer any questions about ... the underlying database schema (including table or column names)'" -> `unanswerable()`. this is why grounding killed LOC on hardened.
+
+**schema names pull v2 into AMB.** Q: "Which column or calculated value should the final query return for the matching row in `plants`?"
+- v2 -> AMB (`g_v2_rep2_...solar_panel_1.jsonl`): "corresponds to the ambiguity surrounding the calculation of 'downtime score' (or 'System Unavailability', defined as `om."mttrh" / (om."mtbfh" + om."mttrh")`) ... Therefore, the action should be `labeled("downtime score")`."
+- hardened -> UNA (`g_hard_rep1_...solar_panel_1.jsonl`): "directly asks about database schema elements (specifically referring to the table `plants` ...) ... I do not know and cannot answer questions regarding the database schema".
+
+**pole question.** Q: "When using `qualifying.q1_r`, `qualifying.q2_r`, and `qualifying.q3_r`, how should the reference pole time for each `qualifying.rbind` be selected?"
+- v2 -> `labeled("time difference")` 5/6
+- hardened -> UNA 6/6: "asks about specific database tables and columns ... I do not have knowledge of the underlying database schema or implementation details."
+
+takeaways from the excerpts:
+- the two prompts gate differently. hardened: "does it mention schema?" -> refuse. v2: "is it a labeled ambiguity / necessary?" -> AMB or refuse.
+- on v2, schema names act as a hook into a labeled ambiguity (`plants` -> downtime score, `q1_r/q2_r/q3_r` -> time difference). that sends the question down the AMB path, which in trial 1 returned sql-level detail.
+- the encoder's reasoning regularly quotes gold sql (the downtime formula, `LIMIT 10`). that text doesn't reach the agent in the batch runner (only the `<s>` action goes to the decoder), but it shows what it's working from.
+- "unnecessary" refusals can rest on false assumptions about the user query, because the encoder never sees it.
+
 ---
 
 ## appendix N (bird-interact paper) vs the code
