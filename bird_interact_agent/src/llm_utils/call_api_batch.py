@@ -407,8 +407,17 @@ def call_api_model(
 
     # --- Backend/Client Setup Logic ---
 
+    # --- Gemini via AI Studio key (OpenAI-compatible endpoint); takes precedence over Vertex when a key is set ---
+    if model_name.startswith("gemini") and model_config.get("gemini", {}).get("api_key"):
+        engine = model_name
+        client = OpenAI(
+            base_url=model_config["gemini"]["base_url"],
+            api_key=model_config["gemini"]["api_key"],
+        )
+        backend = "openai"
+
     # --- Vertex AI Model Routing (Modified) ---
-    if model_name in [
+    elif model_name in [
         "gemini-2.5-pro-preview-03-25",  # Use the EXACT Vertex AI model ID
         "gemini-2.0-flash-001",
         "gemini-2.0-flash",
@@ -497,6 +506,9 @@ def call_api_model(
         backend = "openai"
     elif model_name in [
         "gpt-4o-2024-11-20",
+        "gpt-4o",
+        "gpt-4o-mini",
+        "gpt-4.1-mini",
         "claude-3-7-sonnet-20250219#thinking",
         "claude-3-7-sonnet-20250219",
         "claude-3-5-sonnet-20241022",
