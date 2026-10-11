@@ -101,7 +101,7 @@ went back through all 7 stock-agent transcripts to see what it actually does. pr
 7. **always runs out of budget.** every task ended at or below 0, so the up-front exploring directly limits how many asks/submits are left.
 8. **format-error turns.** 4 times the reply got parsed as a junk action (bare code fence, stray `ORDER BY ...`, a "Wait, if ..." sentence), 0.2 coins each.
 
-full transcripts are local only (findings/transcripts_trials_1_2.md), not pushed.
+full transcripts: transcripts/trials_1_2.md
 
 ---
 
