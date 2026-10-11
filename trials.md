@@ -268,6 +268,50 @@ what it showed:
 
 ---
 
+## trial 3d - schema-grounded probes, both prompts (oct 11)
+
+wrote grounded versions of the LOC candidates using table/column names from the schema files, plus a few narrow single-choice versions (`probes/*_grounded.jsonl`, 16 questions). ran on both v2 and hardened, 6 runs each -> 192 labels, 0 errors. checked the generated prompts: `g_v2_*` have the v2 UNA text, `g_hard_*` have the hardened one.
+
+compared against the generic version of the same question from 3b (hardened) / 3c (v2):
+
+| task | question | generic hard | generic v2 | grounded hard | grounded v2 |
+|---|---|---|---|---|---|
+| solar_panel_1 | rounding_grounded | AMB 6 | AMB 6 | AMB 6 | AMB 6 |
+| | null_grounded | UNA 6 | UNA 6 | UNA 6 | UNA 6 |
+| | **output_grounded** | UNA 6 | UNA 5, unp 1 | UNA 6 | **AMB 4**, unp 2 |
+| | null_mtbf_narrow | UNA 6 | UNA 6 | UNA 6 | UNA 6 |
+| | null_mttr_narrow | UNA 6 | UNA 6 | UNA 6 | UNA 6 |
+| fake_account_2 | **limit_grounded** | **LOC 3**, unp 3 | UNA 2, unp 4 | UNA 1, unp 5 | **LOC 1**, UNA 3, unp 2 |
+| | columns_grounded | UNA 6 | UNA 6 | UNA 6 | UNA 6 |
+| | sort_grounded | AMB 6 | AMB 6 | AMB 6 | AMB 6 |
+| | rounding_grounded | AMB 6 | AMB 6 | AMB 6 | AMB 6 |
+| | limit_narrow | LOC 3, unp 3 | UNA 2, unp 4 | unp 6 | UNA 2, unp 4 |
+| | sort_narrow | AMB 6 | AMB 6 | AMB 6 | AMB 6 |
+| | columns_narrow | UNA 6 | UNA 6 | UNA 6 | UNA 6 |
+| sports_events_19 | sort_grounded | UNA 6 | UNA 6 | UNA 6 | UNA 6 |
+| | columns_grounded | UNA 5, unp 1 | UNA 6 | UNA 5, unp 1 | UNA 6 |
+| | **pole_grounded** | unp 6 | AMB 1, UNA 1, unp 4 | **UNA 6** | **AMB 5**, unp 1 |
+| | columns_narrow | UNA 5, unp 1 | UNA 6 | UNA 6 | UNA 6 |
+
+totals (grounded only): hardened AMB 24 / LOC 0 / UNA 60 / unp 12. v2 AMB 33 / LOC 1 / UNA 53 / unp 9.
+
+what it showed:
+- **grounding didn't unlock LOC.** 1 LOC in 192 labels (`unlabeled("LIMIT 10;")`, limit_grounded on v2). columns / nulls / sort-on-sports stay UNA whether generic, grounded or narrow.
+- **on the hardened prompt grounding made the one LOC question worse.** generic limit question was LOC 3/6; with `accounts.acct_ref` in it, it's UNA/truncated, 0 LOC. fits the hardened UNA rule ("cannot answer ... table or column names") — naming a column pushes it toward refusal.
+- **on v2, grounding pulls questions into AMB instead of LOC.** two clear flips:
+  - solar output question: UNA -> `labeled("downtime score")` 4/6 once it mentions the matching row in `plants`
+  - sports pole question: -> `labeled("time difference")` 5/6 once it names `q1_r/q2_r/q3_r` and `rbind`
+  - so naming the columns behind a labeled concept gets the question matched to that ambiguity. same AMB dominance as the bundles, just triggered by schema names instead of the vague phrase.
+- **same question, opposite direction depending on the prompt.** pole_grounded: hardened UNA 6/6 vs v2 AMB 5/6. so the two prompts really do behave differently once questions get specific; for generic questions they mostly agreed (3c).
+- **narrow single-choice versions didn't help** either. all UNA, or AMB where they hit a listed ambiguity (sort direction).
+- sort / rounding questions are AMB everywhere because they're listed ambiguities (as flagged in 3b), so they're not LOC tests.
+
+overall (3b + 3c + 3d): across generic, grounded and narrow wording on both prompts, unlisted questions reach LOC 4 times out of ~400 labels, all on the row-limit question. the encoder either refuses (UNA) or snaps the question onto a labeled ambiguity (AMB). on v2, schema-grounding makes the AMB snapping *more* likely.
+
+caveats: same as before (3 tasks, temp-0 repeats, gemini-3.8-flash only, truncation on the limit question).
+
+---
+
 ## appendix N (bird-interact paper) vs the code
 
 paper: arxiv 2510.05318, appendix N "User Simulator Design Details" (subsections "SQL Parsing into an AST", "Node Matching via Semantic Search of LLMs"), appendix O "Evaluating the Function-Driven User Simulator". read via a summarizer, need to check exact wording in the pdf before quoting.
