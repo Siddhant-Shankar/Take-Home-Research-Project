@@ -1,0 +1,7 @@
+{"instance_id":"solar_panel_1","selected_database":"solar_panel","question_id":"amb_only_1","question_type":"concise","clarification_question":"How is the downtime score calculated?"}
+{"instance_id":"solar_panel_1","selected_database":"solar_panel","question_id":"loc_rounding_only","question_type":"concise","clarification_question":"How many decimal places should the result be rounded to?"}
+{"instance_id":"solar_panel_1","selected_database":"solar_panel","question_id":"loc_null_only","question_type":"concise","clarification_question":"How should a plant be handled if one of the values needed for the calculation is NULL?"}
+{"instance_id":"solar_panel_1","selected_database":"solar_panel","question_id":"loc_output_only","question_type":"concise","clarification_question":"What should the final query return?"}
+{"instance_id":"solar_panel_1","selected_database":"solar_panel","question_id":"una_only","question_type":"concise","clarification_question":"Should I optimize this calculation with a materialized view?"}
+{"instance_id":"solar_panel_1","selected_database":"solar_panel","question_id":"amb_loc_bundle","question_type":"concise","clarification_question":"How is the downtime score calculated, and how many decimal places should the result be rounded to?"}
+{"instance_id":"solar_panel_1","selected_database":"solar_panel","question_id":"loc_amb_bundle","question_type":"concise","clarification_question":"How many decimal places should the result be rounded to, and how is the downtime score calculated?"}
