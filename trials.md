@@ -215,6 +215,8 @@ what it showed:
   - side note: the encoder's *thought* text quotes gold sql. in the batch runner that thought never goes to the agent (only the `<s>` action does), but worth knowing.
 - so for this (hardened) prompt: listed ambiguity -> AMB, unlisted-but-"valuable" -> mostly UNA, LOC only for a very concrete single-clause thing like a row limit.
 
+limitation (trials 3/3b): the probes were just questions, no tool calls first. that doesn't change what the simulator sees (it's stateless, the encoder only gets ambiguity list + gold sql segments + the question, the decoder adds a static schema file, never the agent's history). but it does change the **wording**: the stock agent asks schema-grounded questions with real names it found (AGE_D, Q1/Q2/Q3, comorbid conditions), while my probes were generic ("which columns should be returned?"). so 3/3b only cover generic questions, and they ignore budget (in a real episode exploring eats ~4-9 coins before the first ask). for 3c: write a generic + a schema-grounded version of each LOC candidate (names from `data/bird-interact-full/<db>/<db>_schema.txt`), so it's prompt x specificity. budget realism gets checked later in full batch-runner runs.
+
 note: leaving the 2048 token cap as-is on purpose. it's the tool's default, so the truncation is part of how usersim-guard behaves with this model, not something to tune away.
 
 still to do: same probes against the batch runner's v2 encoder prompt (no "you don't have access to the solution" line).
