@@ -179,16 +179,18 @@ def api_request(messages, engine, client, backend, **kwargs):
             elif backend == "openai":
                 reasoning = kwargs.get("reasoning", False)
                 max_tokens = kwargs.get("max_tokens", 512) if not reasoning else 10000
+                # Gemini's OpenAI-compatible endpoint rejects the penalty fields and stop=None, so only send them when set
+                penalties = {
+                    k: kwargs[k] for k in ("frequency_penalty", "presence_penalty", "stop") if kwargs.get(k)
+                }
                 completion = client.chat.completions.create(
                     model=engine,
                     messages=messages,
                     temperature=kwargs.get("temperature", 0),
                     max_tokens=max_tokens,
                     top_p=kwargs.get("top_p", 1),
-                    frequency_penalty=kwargs.get("frequency_penalty", 0),
-                    presence_penalty=kwargs.get("presence_penalty", 0),
-                    stop=kwargs.get("stop", None),
-                )   
+                    **penalties,
+                )
                 reasoning_content = getattr(
                     completion.choices[0].message, "reasoning_content", None
                 )
