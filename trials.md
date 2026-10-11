@@ -159,6 +159,66 @@ next: repeat each probe ~5 times to get rates instead of single labels, and run 
 
 ---
 
+## trial 3b - same probes, 5 more repeats (6 runs total per question)
+
+same setup as trial 3 (usersim-guard step1, gemini-3.8-flash, temp 0). 39 questions x 6 runs = 234 labels, 0 api errors.
+
+| task | question_id | AMB | LOC | UNA | unparsed |
+|---|---|---|---|---|---|
+| solar_panel_1 | amb_only_1 | 6 | | | |
+| | loc_rounding_only | 6 | | | |
+| | loc_null_only | | | 6 | |
+| | loc_output_only | | | 6 | |
+| | una_only | | | 6 | |
+| | amb_loc_bundle | 6 | | | |
+| | loc_amb_bundle | 6 | | | |
+| fake_account_2 | amb_only_1 | 6 | | | |
+| | **loc_limit_only** | | **3** | | **3** |
+| | loc_columns_only | | | 6 | |
+| | loc_sort_only | 6 | | | |
+| | loc_rounding_only | 6 | | | |
+| | una_only | | | 6 | |
+| | amb_loc_bundle | 6 | | | |
+| | loc_amb_bundle | 6 | | | |
+| | full_bundle | 6 | | | |
+| sports_events_19 | amb_only_1 | 6 | | | |
+| | amb_only_2 | 6 | | | |
+| | loc_sort_only | | | 6 | |
+| | loc_columns_only | | | 5 | 1 |
+| | loc_pole_only | | | | 6 |
+| | una_only_1 | | | 6 | |
+| | una_only_2 | | | 6 | |
+| | amb_loc_bundle_1 | 6 | | | |
+| | loc_amb_bundle_1 | 6 | | | |
+| | amb_loc_bundle_2 | 6 | | | |
+| | loc_amb_bundle_2 | 5 | | | 1 |
+| | original_full_bundle | 5 | | | 1 |
+| | deletion_1 | | | 6 | |
+| | deletion_2 | | | 6 | |
+| | deletion_3 | | | 6 | |
+| sports_events_19 (core) | core_01_amb | 6 | | | |
+| | core_02_loc_sort | | | 6 | |
+| | core_03_loc_columns | | | 6 | |
+| | core_04_loc_pole | | | | 6 |
+| | core_05_una | | | 6 | |
+| | core_06_amb_loc | 6 | | | |
+| | core_07_loc_amb | 6 | | | |
+| | core_08_loc_pair | | | 6 | |
+
+what it showed:
+- **labels are very stable.** apart from the unparsed ones, every question got the same label in all 6 runs. so the single-run results from trial 3 weren't flukes.
+- **AMB dominance confirmed:** all 9 bundles AMB in every run they parsed (52/52 parsed), both orders.
+- **deletions -> UNA 18/18.** strips the AMB part, get a refusal, never LOC.
+- **LOC still only shows up for one question:** fake_account_2 "how many users should be returned?" -> LOC 3/6 (`unlabeled("LIMIT:\n10;")` x2, `unlabeled("10;")` x1).
+- **"unparsed" is actually truncation, not a different answer.** looked at the raw outputs, they're cut off mid-thought (250-570 chars). the other 3 limit runs were mid-way through reasoning "not in the labeled ambiguity points... however in the ground-truth SQL segments there is a LIMIT clause" when they stopped, so that question is probably LOC closer to 6/6. the pole question gets cut off every time while the model is quoting the gold time-difference expression in its thinking.
+  - likely cause: usersim-guard caps output at 2048 tokens and gemini-3.8-flash spends some of that on hidden thinking. the batch runner allows 6000 so it shouldn't hit this as much.
+  - side note: the encoder's *thought* text quotes gold sql. in the batch runner that thought never goes to the agent (only the `<s>` action does), but worth knowing.
+- so for this (hardened) prompt: listed ambiguity -> AMB, unlisted-but-"valuable" -> mostly UNA, LOC only for a very concrete single-clause thing like a row limit.
+
+still to do: same probes against the batch runner's v2 encoder prompt (no "you don't have access to the solution" line), and raise the token cap so the pole question can actually finish.
+
+---
+
 ## open questions / todo
 - does the exploit have to fit inside the official budget? (assuming yes)
 - pick the 10 held-out tasks (disjoint from dev tasks)
