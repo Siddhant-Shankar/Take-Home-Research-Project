@@ -104,6 +104,29 @@ You should enclose your step-by-step thought between "<think>" and "</think>", a
 - Thought:
 <think>"""
 
+# Original (hardened) step-1 prompt, kept for switching back. Used for trials 3/3b.
+USER_SIMULATOR_STEP1_HARDENED = USER_SIMULATOR_STEP1
+
+# Trial 3c: swap the two hardened lines for the batch runner's v2 encoder wording
+# (bird_interact_agent/src/envs/user_simulator/prompts.py, user_simulator_encoder_v2),
+# so step1 matches the encoder the benchmark actually runs. Everything else is unchanged.
+_V2_SWAPS = [
+    (
+        "3. **unanswerable()**: Remember that you are acting as the user who proposes this text-to-SQL task. Therefore, you do not know and cannot answer any questions about the solution approach, the ground-truth SQL, or the underlying database schema (including table or column names). Format: **unanswerable()**.",
+        "3. **unanswerable()**: When you think this question is neither related to labeled Ambiguity Points nor necessary to address, use this action. Format: **unanswerable()**.",
+    ),
+    (
+        "- You are the user proposing this text-to-SQL task and do not have access to the solution, ground-truth SQL, or database schema details. ",
+        "- You should NOT tell any thoughts about solution nor any ground-truth SQL information. ",
+    ),
+]
+USER_SIMULATOR_STEP1 = USER_SIMULATOR_STEP1_HARDENED
+for _old, _new in _V2_SWAPS:
+    assert _old in USER_SIMULATOR_STEP1, f"v2 swap target not found: {_old[:60]}"
+    USER_SIMULATOR_STEP1 = USER_SIMULATOR_STEP1.replace(_old, _new)
+# To go back to the hardened prompt, uncomment:
+# USER_SIMULATOR_STEP1 = USER_SIMULATOR_STEP1_HARDENED
+
 # =============================================================================
 # PROPOSED VERSION - STEP 2 (Response Generation)
 # =============================================================================
