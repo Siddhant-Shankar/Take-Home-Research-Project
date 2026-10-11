@@ -2,3 +2,6 @@
 postgre_table_dumps
 postgre_table_dumps_full
 *.pyc
+# local data / run outputs
+bird_interact_agent/data/
+bird_interact_agent/outputs/

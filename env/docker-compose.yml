@@ -16,7 +16,7 @@ services:
       - "-c"
       - "shared_buffers=256MB"
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
 
   postgresql_full:
     image: docker.io/shawnxxh/bird-interact-postgresql-full:latest
@@ -33,7 +33,7 @@ services:
       - "-c"
       - "shared_buffers=256MB"
     ports:
-      - "5433:5432"
+      - "127.0.0.1:5433:5432"
 
   bird_interact_eval:
     image: docker.io/shawnxxh/bird-interact-eval:latest
