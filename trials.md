@@ -79,6 +79,32 @@ output: `bird_interact_agent/outputs/batch_runs/20261011_022447_baseline/` (loca
 
 ---
 
+## observed agent behaviour (trials 1-2, 7 tasks)
+
+went back through all 7 stock-agent transcripts to see what it actually does. pretty consistent:
+
+1. **same opening every time.** all 7 start with `get_schema()` then `get_all_external_knowledge_names()`, then pull individual kb definitions.
+   ```
+   solar_panel_1      schema > kb_names > kb_def x2 > col_meaning > execute x4 > ASK (t10)
+   fake_account_2     schema > kb_names > kb_def x3 > col_meaning x2 > execute x2 > ASK (t10)
+   sports_events_19   schema > kb_names > kb_def x7 > execute > ASK (t11) > execute > ASK > ASK
+   polar_equipment_4  schema > kb_names > kb_def x9 > execute x2 > ASK (t14)
+   organ_transplant_9 schema > kb_names > kb_def > col_meaning x2 > execute x6 > col_meaning > ASK (t13)
+   labor_cert_M_10    schema > kb_names > kb_def > col_meaning > kb_def x2 > ASK (t7)
+   museum_artifact_M1 schema > kb_names > kb_def x5 > execute > kb_def x2 > execute x2 > kb_def > ASK (t14)
+   ```
+2. **asks late.** first ask is at turn 7-14, after ~4-9 coins of exploring. by then it knows the real table/column names and which kb entries exist.
+3. **finds the gap by reading around it.** looks up the definitions next to the hidden concept (e.g. "System Availability" when "System Unavailability" is the deleted one) and then asks about the piece the kb doesn't define.
+4. **execute is for checking, not answering.** row counts, looking at one row, checking for NULLs, then testing the formula after the user replies.
+5. **one question template.** "could you clarify how/whether [vague phrase from the task] ... [its own guess or options] ... and [rows / columns / sorting]?"
+6. **short verify-then-submit loop after the reply.** 1-3 executes then submit. p1 passed 3/7. p2 always got cut off by budget.
+7. **always runs out of budget.** every task ended at or below 0, so the up-front exploring directly limits how many asks/submits are left.
+8. **format-error turns.** 4 times the reply got parsed as a junk action (bare code fence, stray `ORDER BY ...`, a "Wait, if ..." sentence), 0.2 coins each.
+
+full transcripts are local only (findings/transcripts_trials_1_2.md), not pushed.
+
+---
+
 ## open questions / todo
 - does the exploit have to fit inside the official budget? (assuming yes)
 - pick the 10 held-out tasks (disjoint from dev tasks)
