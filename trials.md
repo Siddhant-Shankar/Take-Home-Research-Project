@@ -105,6 +105,60 @@ full transcripts: transcripts/trials_1_2.md
 
 ---
 
+## trial 3 - encoder routing probes via usersim-guard step1 (oct 10)
+
+wanted to see if LOC is reachable at all, and whether bundling makes AMB win. wrote probe questions per task (`probes/*.jsonl`), ran them through usersim-guard `generate --prompt_type step1` + `infer`, gemini-3.8-flash, temp 0, **1 run each**.
+
+**caveat:** usersim-guard's step1 prompt is not identical to the batch runner's v2 encoder. it adds "You are the user proposing this text-to-SQL task and do not have access to the solution, ground-truth SQL, or database schema details." so this is the hardened ("proposed") simulator, not exactly what the a-interact batch runner uses.
+
+| task | question_id | label |
+|---|---|---|
+| fake_account_2 | amb_only_1 | AMB `most often` |
+| | loc_limit_only | **LOC `unlabeled("LIMIT:\n10;")`** |
+| | loc_columns_only | UNA |
+| | loc_sort_only | AMB `order` |
+| | loc_rounding_only | AMB `decimal` |
+| | una_only | UNA |
+| | amb_loc_bundle | AMB `most often` |
+| | loc_amb_bundle | AMB `most often` |
+| | full_bundle | AMB `most often` |
+| solar_panel_1 | amb_only_1 | AMB `downtime score` |
+| | loc_rounding_only | AMB `rounded` |
+| | loc_null_only | UNA |
+| | loc_output_only | UNA |
+| | una_only | UNA |
+| | amb_loc_bundle | AMB `downtime score` |
+| | loc_amb_bundle | AMB `downtime score` |
+| sports_events_19 | amb_only_1, amb_only_2 | AMB `time difference` (both) |
+| | loc_sort_only | UNA |
+| | loc_columns_only | UNA |
+| | loc_pole_only | unparsed (no `<s>` tag in output) |
+| | una_only_1, una_only_2 | UNA (both) |
+| | amb_loc_bundle_1/2, loc_amb_bundle_1/2 | AMB `time difference` (all 4) |
+| | original_full_bundle | AMB `time difference` |
+| | deletion_1, deletion_2, deletion_3 | UNA (all 3) |
+| sports_events_19 (core set) | core_01_amb | AMB |
+| | core_02_loc_sort, core_03_loc_columns | UNA |
+| | core_04_loc_pole | unparsed |
+| | core_05_una | UNA |
+| | core_06_amb_loc, core_07_loc_amb | AMB (both) |
+| | core_08_loc_pair | UNA |
+
+what it showed:
+- **pure AMB questions -> AMB every time** (6/6). baseline works as expected.
+- **pure UNA questions -> UNA every time** (5/5).
+- **LOC is reachable but rare: 1 hit.** fake_account_2 "how many users should be returned?" -> `unlabeled("LIMIT:\n10;")`. everything else i meant as LOC went to UNA or AMB.
+- **some of my "LOC" questions were actually labeled ambiguities.** sort and rounding questions came back AMB (`order`, `decimal`, `rounded`) because those are in the non-critical ambiguity list. need to check the ambiguity list before calling something a LOC candidate.
+- **the hardened prompt mostly sends unlisted questions to UNA, not LOC.** columns, sorting, nulls, "what should the query return" all got refused.
+- **bundles -> AMB 100% (9/9), order doesn't matter.** AMB-first and LOC-first gave the same label in every pair. so it's AMB dominance, not a position effect (n=1 each though).
+- **deleting the AMB part flips it to UNA, not LOC.** deletion_1-3 all UNA. so the LOC-ish parts in the original sports question weren't "hidden LOC", they'd have been refused on their own.
+- interesting: the one LOC label carried the actual gold fragment in it (`LIMIT 10`). in the batch runner the label only goes to the decoder, not the agent, but it shows what the decoder gets handed.
+- 2 outputs had no `<s>` tag (pole questions), model rambled about the labels instead. counting those as unparsed.
+
+next: repeat each probe ~5 times to get rates instead of single labels, and run the same probes against the batch runner's v2 encoder prompt to see if the hardened guideline is what's pushing things to UNA.
+
+---
+
 ## open questions / todo
 - does the exploit have to fit inside the official budget? (assuming yes)
 - pick the 10 held-out tasks (disjoint from dev tasks)
