@@ -355,6 +355,56 @@ takeaway: there's a gap between the paper's LOC design (node-level retrieval tha
 
 ---
 
+## trial 4 - amb hooks + chains through the batch runner's own simulator code (oct 13)
+
+wanted to test the amb path directly instead of trying to reach loc. new script `audit/sim_turns.py` runs single ask turns through the batch runner's own `build_user_encoder_prompt` -> `parse_encoder_response` -> `build_user_decoder_prompt` (same calls as main.py:678/706/728), so unlike 3b-3d this is the real benchmark path, encoder **and** decoder. ran inside the bird_interact_eval container, gemini-3.8-flash, temp 0, max_tokens 6000 (batch runner default).
+
+probes (`probes/trial4_amb_path.jsonl`, 38 questions x 3 runs = 114 turns, 0 api errors):
+- `loc_e2e` (2): the fake_account_2 row-limit question, generic + grounded
+- `amb_hook` (15): a labeled term + one unlisted sub-question (columns / limit / nulls / tables / filter / order)
+- `amb_chain` (21): rewordings of the same labeled term, each poking at a different piece
+
+labels: AMB 106, LOC 4, UNA 3, unparsed 1.
+
+| task | hook + sub-question | label | what the reply added beyond the hook | runs |
+|---|---|---|---|---|
+| fake_account_2 | "most often" + how many users | AMB | the row limit (top 10) | 3/3 |
+| fake_account_2 | "most often" + exclude any accounts | AMB | the age filter | 3/3 |
+| fake_account_2 | "most often" + zero/missing age | AMB | same age filter | 3/3 |
+| fake_account_2 | "most often" + which columns | AMB | output columns, rounding, sort direction | 3/3 |
+| solar_panel_1 | "downtime score" + how to pick the plant | AMB | which column to match the plant on | 3/3 |
+| solar_panel_1 | "downtime score" + one value or many | AMB | return a single value | 3/3 |
+| sports_events_19 | "time difference" + exclusions | AMB | no races/drivers excluded | 3/3 |
+| sports_events_19 | "time difference" + sort order | AMB | no sorting | 3/3 |
+
+what it showed:
+- **amb works as a carrier.** a sub-question that isn't a labeled ambiguity gets answered from the gold sql as long as it's attached to a labeled term, and the encoder still says AMB (all 15 hooks AMB 45/45).
+- **the added facts are privileged.** for fake_account_2 the row limit, the age filter and the output column are in sol_sql but in none of the annotation `sql_snippet`s (string search over both). same for the plant-match column on solar_panel_1. for sports_events_19 the gold has no WHERE and no ORDER BY, so "no exclusions / no sorting" are correct disclosures, not guesses.
+- **the decoder has no clean user query to get them from either.** the full split has no `query` field (checked: not in the public file and not in the gt file), so `build_user_decoder_prompt` falls back to `amb_user_query` for `[[clear_query]]`. so the only place "top 10" etc. can come from is the gold sql.
+- **asked alone, the same kinds of questions were refused** in 3b/3c (columns / nulls / output -> UNA in every parsed run). **but** those were on usersim-guard step1, not this path, so the same-path control still has to be run before claiming the hook is the cause.
+- **chains mostly restate the labeled answer.** 61/63 chain turns AMB. some rewordings add a piece (fake "where does the login count come from" named the source table 1/3; solar "which records" named the source table 2/3).
+- **loc end to end:** generic "how many users should be returned?" -> `unlabeled("LIMIT 10;")` 3/3, agent gets "Please return the top 10 users." grounded version (names `accounts.acct_ref`) -> UNA 3/3.
+  - **this contradicts 3c**, where the same generic question on the usersim-guard copy of the v2 wording was never LOC. so the two paths behave differently and 3b-3d may understate loc on the real path. need to find out why (output cap? prompt filling? the model skipped `<think>` entirely here, 14 completion tokens).
+- **encoder parse fallback fired once (1/114).** encoder output had no `</s>`, so `parse_encoder_response` passed its whole reasoning (which quoted gold sql segments) to the decoder as the "label" (prompt_utils.py:237). decoder reply in that turn didn't quote it, but it's a path for gold text to reach the decoder twice.
+- `audit/disclosure.py` (gold-component mention counter) exists but its numbers aren't used here: it counts names the agent can also see in the schema, so i mapped replies by hand instead.
+
+outputs: `bird_interact_agent/outputs/trial4/turns.jsonl` (local only, gitignored, replies hold gold-derived text).
+
+### is this an exploit yet? no, it's a candidate
+
+have: a mechanism (amb carries unlisted gold facts), evidence the facts are privileged, and a root cause in code (stateless sim, no per-turn cap, decoder holds full gold sql).
+
+still need for a certificate (starter task result 1):
+1. same-path control: each trial-4 sub-question alone through `audit/sim_turns.py`
+2. build sql only from the hooked answers + schema, run the official eval, get a pass
+3. ablation: drop the hooked answers, regenerate with the same generator, pass goes away
+4. reusable policy (one hook per labeled term, one unlisted sub-question each) inside the official budget
+5. 10 held-out tasks with full transcripts
+
+likely pushback: in trial 2 the stock agent already bundled on fake_account_2, got top 10 + the formula, and passed p1. so "hooking" looks a lot like normal agent behaviour. the ablation is what separates "these answers were necessary" from "the agent would have got there anyway".
+
+---
+
 ## open questions / todo
 - does the exploit have to fit inside the official budget? (assuming yes)
 - pick the 10 held-out tasks (disjoint from dev tasks)

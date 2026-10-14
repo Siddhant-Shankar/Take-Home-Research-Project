@@ -1,0 +1,38 @@
+{"instance_id":"fake_account_2","question_id":"loc_limit_generic","family":"loc_e2e","clarification_question":"How many users should be returned?"}
+{"instance_id":"fake_account_2","question_id":"loc_limit_grounded","family":"loc_e2e","clarification_question":"How many `accounts.acct_ref` rows should be returned in the final result?"}
+{"instance_id":"fake_account_2","question_id":"hook_columns","family":"amb_hook","clarification_question":"How exactly should 'log in most often for how old they are' be measured, and which columns should the result show?"}
+{"instance_id":"fake_account_2","question_id":"hook_limit","family":"amb_hook","clarification_question":"How exactly should 'most often' be measured, and how many users do you want back?"}
+{"instance_id":"fake_account_2","question_id":"hook_nulls","family":"amb_hook","clarification_question":"How exactly should 'most often' be measured, and what should happen for accounts whose age is zero or missing?"}
+{"instance_id":"fake_account_2","question_id":"hook_tables","family":"amb_hook","clarification_question":"How exactly should 'most often' be measured, and should it come from the account records or the session records?"}
+{"instance_id":"fake_account_2","question_id":"hook_filter","family":"amb_hook","clarification_question":"How exactly should 'most often' be measured, and should any accounts be excluded?"}
+{"instance_id":"fake_account_2","question_id":"chain_1","family":"amb_chain","clarification_question":"What do you mean by 'log in most often for how old they are'?"}
+{"instance_id":"fake_account_2","question_id":"chain_2","family":"amb_chain","clarification_question":"When you say 'most often', is that a plain count of logins, or logins relative to account age?"}
+{"instance_id":"fake_account_2","question_id":"chain_3","family":"amb_chain","clarification_question":"For the 'most often' measure, should I divide something by the account age? What exactly goes on top?"}
+{"instance_id":"fake_account_2","question_id":"chain_4","family":"amb_chain","clarification_question":"For 'most often', where does the login count come from: is it stored per session or per account?"}
+{"instance_id":"fake_account_2","question_id":"chain_5","family":"amb_chain","clarification_question":"For the 'most often' ratio, what should I do when the account age is zero?"}
+{"instance_id":"fake_account_2","question_id":"chain_6","family":"amb_chain","clarification_question":"For the 'most often' ranking, how precise should the numbers be and which end of the ranking do you want?"}
+{"instance_id":"solar_panel_1","question_id":"hook_columns","family":"amb_hook","clarification_question":"How is the 'downtime score' calculated, and what should the output contain?"}
+{"instance_id":"solar_panel_1","question_id":"hook_filter","family":"amb_hook","clarification_question":"How is the 'downtime score' calculated, and how should I pick out the plant, by its name?"}
+{"instance_id":"solar_panel_1","question_id":"hook_nulls","family":"amb_hook","clarification_question":"How is the 'downtime score' calculated, and what should happen if some reliability values are missing?"}
+{"instance_id":"solar_panel_1","question_id":"hook_tables","family":"amb_hook","clarification_question":"How is the 'downtime score' calculated, and which records should it use, the latest snapshot or all of them?"}
+{"instance_id":"solar_panel_1","question_id":"hook_limit","family":"amb_hook","clarification_question":"How is the 'downtime score' calculated, and should I return one value or one per record?"}
+{"instance_id":"solar_panel_1","question_id":"chain_1","family":"amb_chain","clarification_question":"What does 'downtime score' mean to you?"}
+{"instance_id":"solar_panel_1","question_id":"chain_2","family":"amb_chain","clarification_question":"Is the 'downtime score' about availability, like the share of time a plant is down?"}
+{"instance_id":"solar_panel_1","question_id":"chain_3","family":"amb_chain","clarification_question":"For the 'downtime score', which reliability measures go into it: repair time, time between failures, or both?"}
+{"instance_id":"solar_panel_1","question_id":"chain_4","family":"amb_chain","clarification_question":"For the 'downtime score', what is on top of the fraction and what is underneath?"}
+{"instance_id":"solar_panel_1","question_id":"chain_5","family":"amb_chain","clarification_question":"For the 'downtime score', should it be a fraction, a percentage, or rounded somehow?"}
+{"instance_id":"solar_panel_1","question_id":"chain_6","family":"amb_chain","clarification_question":"For the 'downtime score', which maintenance or operations records should it be computed from?"}
+{"instance_id":"sports_events_19","question_id":"hook_columns","family":"amb_hook","clarification_question":"How should each driver's 'time difference' be calculated, and what columns should the final result have?"}
+{"instance_id":"sports_events_19","question_id":"hook_filter","family":"amb_hook","clarification_question":"How should each driver's 'time difference' be calculated, and should any races or drivers be left out?"}
+{"instance_id":"sports_events_19","question_id":"hook_nulls","family":"amb_hook","clarification_question":"How should each driver's 'time difference' be calculated, and what if a driver has no Q2 or Q3 time?"}
+{"instance_id":"sports_events_19","question_id":"hook_tables","family":"amb_hook","clarification_question":"How should each driver's 'time difference' be calculated, and should it use qualifying data or race results?"}
+{"instance_id":"sports_events_19","question_id":"hook_order","family":"amb_hook","clarification_question":"How should each driver's 'time difference' be calculated, and how should the output be sorted?"}
+{"instance_id":"sports_events_19","question_id":"chain_1","family":"amb_chain","clarification_question":"What does 'time difference' refer to?"}
+{"instance_id":"sports_events_19","question_id":"chain_2","family":"amb_chain","clarification_question":"Is the 'time difference' measured against the pole time in qualifying?"}
+{"instance_id":"sports_events_19","question_id":"chain_3","family":"amb_chain","clarification_question":"For the 'time difference', which qualifying session's time should I use for each driver?"}
+{"instance_id":"sports_events_19","question_id":"chain_4","family":"amb_chain","clarification_question":"For the 'time difference', what if a driver has no Q3 or Q2 time?"}
+{"instance_id":"sports_events_19","question_id":"chain_5","family":"amb_chain","clarification_question":"For the 'time difference', what unit should it be in, seconds or milliseconds?"}
+{"instance_id":"sports_events_19","question_id":"chain_6","family":"amb_chain","clarification_question":"For the 'time difference', how is the pole time worked out for each race?"}
+{"instance_id":"sports_events_19","question_id":"groups_1","family":"amb_chain","clarification_question":"How should drivers be put into 'groups'?"}
+{"instance_id":"sports_events_19","question_id":"groups_2","family":"amb_chain","clarification_question":"For the 'groups', what are the cut-off values between them?"}
+{"instance_id":"sports_events_19","question_id":"groups_3","family":"amb_chain","clarification_question":"For the 'groups', what should each group be called?"}
