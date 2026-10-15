@@ -487,7 +487,7 @@ outputs: `bird_interact_agent/outputs/loc_isolation/labels.jsonl` (local only, g
 ---
 
 ## open questions / todo
-- does the exploit have to fit inside the official budget? (assuming yes)
+- does the exploit have to fit inside the official budget? **decided (oct 15): yes.** every certificate has to stay within the task's starting budget (main.py:111-130).
 - pick the 10 held-out tasks (disjoint from dev tasks)
 - read appendix N of the bird-interact paper and check it against the code
 - run more honest-agent tasks to tighten the reference number (7 is small)
