@@ -1,0 +1,15 @@
+{"instance_id":"fake_account_2","question_id":"ctrl_columns","family":"control","pairs_with":"hook_columns","clarification_question":"Which columns should the result show?"}
+{"instance_id":"fake_account_2","question_id":"ctrl_limit","family":"control","pairs_with":"hook_limit","clarification_question":"How many users do you want back?"}
+{"instance_id":"fake_account_2","question_id":"ctrl_nulls","family":"control","pairs_with":"hook_nulls","clarification_question":"What should happen for accounts whose age is zero or missing?"}
+{"instance_id":"fake_account_2","question_id":"ctrl_tables","family":"control","pairs_with":"hook_tables","clarification_question":"Should this come from the account records or the session records?"}
+{"instance_id":"fake_account_2","question_id":"ctrl_filter","family":"control","pairs_with":"hook_filter","clarification_question":"Should any accounts be excluded?"}
+{"instance_id":"solar_panel_1","question_id":"ctrl_columns","family":"control","pairs_with":"hook_columns","clarification_question":"What should the output contain?"}
+{"instance_id":"solar_panel_1","question_id":"ctrl_filter","family":"control","pairs_with":"hook_filter","clarification_question":"How should I pick out the plant, by its name?"}
+{"instance_id":"solar_panel_1","question_id":"ctrl_nulls","family":"control","pairs_with":"hook_nulls","clarification_question":"What should happen if some reliability values are missing?"}
+{"instance_id":"solar_panel_1","question_id":"ctrl_tables","family":"control","pairs_with":"hook_tables","clarification_question":"Which records should it use, the latest snapshot or all of them?"}
+{"instance_id":"solar_panel_1","question_id":"ctrl_limit","family":"control","pairs_with":"hook_limit","clarification_question":"Should I return one value or one per record?"}
+{"instance_id":"sports_events_19","question_id":"ctrl_columns","family":"control","pairs_with":"hook_columns","clarification_question":"What columns should the final result have?"}
+{"instance_id":"sports_events_19","question_id":"ctrl_filter","family":"control","pairs_with":"hook_filter","clarification_question":"Should any races or drivers be left out?"}
+{"instance_id":"sports_events_19","question_id":"ctrl_nulls","family":"control","pairs_with":"hook_nulls","clarification_question":"What if a driver has no Q2 or Q3 time?"}
+{"instance_id":"sports_events_19","question_id":"ctrl_tables","family":"control","pairs_with":"hook_tables","clarification_question":"Should it use qualifying data or race results?"}
+{"instance_id":"sports_events_19","question_id":"ctrl_order","family":"control","pairs_with":"hook_order","clarification_question":"How should the output be sorted?"}
