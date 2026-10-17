@@ -306,7 +306,7 @@ what it showed:
 - **narrow single-choice versions didn't help** either. all UNA, or AMB where they hit a listed ambiguity (sort direction).
 - sort / rounding questions are AMB everywhere because they're listed ambiguities (as flagged in 3b), so they're not LOC tests.
 
-overall (3b + 3c + 3d): across generic, grounded and narrow wording on both prompts, unlisted questions reach LOC 4 times out of ~400 labels, all on the row-limit question. the encoder either refuses (UNA) or snaps the question onto a labeled ambiguity (AMB). on v2, schema-grounding makes the AMB snapping *more* likely.
+overall (3b + 3c + 3d): across generic, grounded and narrow wording on both prompts, unlisted questions reach LOC 4 times out of 660 labels (234 + 234 + 192), all on the row-limit question. the encoder either refuses (UNA) or snaps the question onto a labeled ambiguity (AMB). on v2, schema-grounding makes the AMB snapping *more* likely.
 
 caveats: same as before (3 tasks, temp-0 repeats, gemini-3.8-flash only, truncation on the limit question).
 
@@ -440,7 +440,7 @@ labels: UNA 30, LOC 9, AMB 3, empty 3.
 
 | task | sub-question | alone: fact disclosed | hooked (trial 4) | hook effect? |
 |---|---|---|---|---|
-| solar_panel_1 | how to pick the plant | 0/3 (UNA) | 3/3 | yes |
+| solar_panel_1 | how to pick the plant | 0/3 (UNA 2, empty 1, refused) | 3/3 | yes |
 | solar_panel_1 | what the output contains | 0/3 (UNA) | 3/3 | yes |
 | sports_events_19 | exclusions | 0/3 (UNA) | 3/3 | yes |
 | sports_events_19 | qualifying or race data | 0/3 (UNA) | 3/3 | yes |
