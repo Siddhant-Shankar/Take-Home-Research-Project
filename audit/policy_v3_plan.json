@@ -1,0 +1,27 @@
+{
+  "fake_account_2": {
+    "none": [],
+    "p6": [
+      {"trial": "policy_v3", "question_id": "v3_slot1", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot2", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot3", "rep": 1}
+    ],
+    "p6_minus_cardinality": [
+      {"trial": "policy_v3", "question_id": "v3_slot1", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot3", "rep": 1}
+    ],
+    "p10": [
+      {"trial": "policy_v3", "question_id": "v3_slot1", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot2", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot3", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot4", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot5", "rep": 1}
+    ],
+    "p10_minus_cardinality": [
+      {"trial": "policy_v3", "question_id": "v3_slot1", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot3", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot4", "rep": 1},
+      {"trial": "policy_v3", "question_id": "v3_slot5", "rep": 1}
+    ]
+  }
+}

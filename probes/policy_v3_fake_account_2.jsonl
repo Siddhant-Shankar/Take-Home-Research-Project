@@ -1,0 +1,5 @@
+{"instance_id": "fake_account_2", "question_id": "v3_slot1", "family": "policy_v3", "clarification_question": "How exactly should 'most often' be measured, and which columns should the result show?"}
+{"instance_id": "fake_account_2", "question_id": "v3_slot2", "family": "policy_v3", "clarification_question": "How exactly should 'most often' be measured, and how many users do you want back?"}
+{"instance_id": "fake_account_2", "question_id": "v3_slot3", "family": "policy_v3", "clarification_question": "How exactly should 'most often' be measured, and should any accounts be excluded?"}
+{"instance_id": "fake_account_2", "question_id": "v3_slot4", "family": "policy_v3", "clarification_question": "How exactly should 'most often' be measured, and what should happen for accounts whose age is zero or missing?"}
+{"instance_id": "fake_account_2", "question_id": "v3_slot5", "family": "policy_v3", "clarification_question": "How exactly should 'most often' be measured, and should this come from the account records or the session records?"}
