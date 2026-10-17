@@ -1,0 +1,843 @@
+{
+  "robot_fault_prediction_11": {
+    "amb_only": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_broad1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_broad2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_broad3",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot1": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot2": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot3": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot4": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot5": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot6": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ]
+  },
+  "insider_trading_5": {
+    "amb_only": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_broad1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_broad2",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot1": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot2": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot3": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot4": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot5": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot6": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ]
+  },
+  "virtual_idol_9": {
+    "amb_only": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_broad1",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot1": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot2": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot3": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot4": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot5": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      }
+    ]
+  },
+  "disaster_relief_11": {
+    "amb_only": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_broad1",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot1": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot2": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot3": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot4": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot5": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      }
+    ]
+  },
+  "reverse_logistics_1": {
+    "amb_only": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_broad1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_broad2",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot1": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot2": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot3": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot4": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot5": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot6": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ]
+  },
+  "cold_chain_pharma_compliance_20": {
+    "frozen_minus_v3_slot1": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot2": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot3": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      }
+    ],
+    "frozen_minus_v3_slot4": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "hulushows_14": {
+    "none": []
+  },
+  "robot_fault_prediction_11": {
+    "none": [],
+    "frozen_p10": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ]
+  },
+  "planets_data_14": {
+    "none": []
+  },
+  "exchange_traded_funds_18": {
+    "none": []
+  },
+  "crypto_exchange_19": {
+    "none": []
+  },
+  "insider_trading_5": {
+    "none": [],
+    "frozen_p10": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ]
+  },
+  "virtual_idol_9": {
+    "none": [],
+    "frozen_p10": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ]
+  },
+  "disaster_relief_11": {
+    "none": [],
+    "frozen_p10": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      }
+    ]
+  },
+  "reverse_logistics_1": {
+    "none": [],
+    "frozen_p10": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot5",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot6",
+        "rep": 1
+      }
+    ]
+  },
+  "cold_chain_pharma_compliance_20": {
+    "none": [],
+    "frozen_p10": [
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot1",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot2",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot3",
+        "rep": 1
+      },
+      {
+        "trial": "policy_v3_heldout",
+        "question_id": "v3_slot4",
+        "rep": 1
+      }
+    ]
+  }
+}
