@@ -55,6 +55,8 @@ SQL_NOISE = {
     "first", "last", "with", "distinct", "case", "when", "then", "else", "end", "is", "null",
     "in", "between", "like", "ilike", "cast", "numeric", "decimal", "float", "double", "int",
     "integer", "text", "varchar", "true", "false", "coalesce", "over", "partition",
+    # function names: a MAX in a CTE must not add a token the annotation snippet lacks
+    "max", "min", "sum", "avg", "count", "round", "nullif",
 }
 
 
@@ -63,13 +65,6 @@ def norm_sql(s: str) -> str:
     s = re.sub(r"::\w+", "", s)                 # drop casts: x::numeric -> x
     s = re.sub(r"\bnulls\s+(first|last)\b", "", s)
     return _WS.sub(" ", re.sub(r"\s*([(),=<>+\-*/])\s*", r"\1", s)).strip()
-
-
-FUNC_WORDS = {   # how a reply usually says a SQL function
-    "avg": ("average", "mean", "avg"), "sum": ("total", "sum"), "count": ("count", "number of", "how many"),
-    "max": ("maximum", "highest", "largest", "max"), "min": ("minimum", "lowest", "smallest", "min"),
-    "round": ("round",), "extract": ("extract", "year", "month"), "date_part": ("year", "month", "day"),
-}
 
 
 def key_tokens(s: str, drop: Iterable[str] = ()) -> set[str]:
@@ -190,19 +185,46 @@ class ComponentMap:
         comps: list[Component] = []
         seen: set[tuple[str, str]] = set()
         aliases: set[str] = set()
+        cte_cols: dict[tuple[str, str], exp.Expression] = {}   # ("sess", "session_cnt") -> its expression
 
-        def add(kind: str, text: str, scope: str):
+        def expand(e: exp.Expression) -> exp.Expression:
+            """Replace references to CTE output columns by the expressions that define them."""
+            if not cte_cols:
+                return e
+
+            def f(n):
+                if isinstance(n, exp.Column) and n.table and (n.table.lower(), n.name.lower()) in cte_cols:
+                    return cte_cols[(n.table.lower(), n.name.lower())].copy()
+                return n
+            out, prev = e.copy(), None
+            for _ in range(6):                  # CTEs can build on CTEs
+                out = out.transform(f)
+                cur = out.sql(dialect=self.dialect)
+                if cur == prev:
+                    break
+                prev = cur
+            return out
+
+        def add(kind: str, text: str, scope: str, node: Optional[exp.Expression] = None):
             text = text.strip()
             key = (kind, norm_sql(text))
             if not text or key in seen:
                 return
             seen.add(key)
-            comps.append(Component(f"C{len(comps) + 1}", kind, text, key_tokens(text, aliases), False, scope))
+            keyed = _sql(expand(node)) if node is not None else text
+            comps.append(Component(f"C{len(comps) + 1}", kind, text, key_tokens(keyed, aliases), False, scope))
 
         try:
             tree = sqlglot.parse_one(sql, read=self.dialect)
             aliases = {a.name.lower() for a in tree.find_all(exp.TableAlias) if a.name}
             self.aliases = aliases
+            for cte in tree.find_all(exp.CTE):
+                sel = cte.this
+                if isinstance(sel, exp.Select):
+                    for e in sel.expressions:
+                        name = e.alias_or_name
+                        if name:
+                            cte_cols[(cte.alias.lower(), name.lower())] = _strip(e)
         except Exception:
             # unparsable gold: fall back to a crude clause split so the defense still has something to audit
             for kind, pat in (("filter", r"\bwhere\b(.*?)(?=\bgroup by\b|\border by\b|\blimit\b|$)"),
@@ -232,7 +254,7 @@ class ComponentMap:
             if sel.args.get("distinct"):
                 add("distinct", "SELECT DISTINCT", scope)
             for e in sel.expressions:
-                add("select_column", _sql(_strip(e, rounding=True)), scope)
+                add("select_column", _sql(_strip(e, rounding=True)), scope, _strip(e, rounding=True))
             frm = sel.args.get("from_") or sel.args.get("from")
             if frm is not None:
                 for t in frm.find_all(exp.Table):
@@ -241,47 +263,62 @@ class ComponentMap:
                 for t in j.find_all(exp.Table):
                     add("table", _sql(t), scope)
                 if j.args.get("on") is not None:
-                    add("join", f"JOIN ... ON {_sql(_strip(j.args['on']))}", scope)
+                    add("join", f"JOIN ... ON {_sql(_strip(j.args['on']))}", scope, _strip(j.args["on"]))
             where = sel.args.get("where")
             if where is not None:
                 for c in _flatten_conj(where.this):
-                    add("filter", _sql(_strip(c)), scope)
+                    add("filter", _sql(_strip(c)), scope, _strip(c))
             group = sel.args.get("group")
             if group is not None:
                 add("group_by", _sql(group), scope)
             having = sel.args.get("having")
             if having is not None:
                 for c in _flatten_conj(having.this):
-                    add("having", f"HAVING {_sql(_strip(c))}", scope)
+                    add("having", f"HAVING {_sql(_strip(c))}", scope, _strip(c))
             order = sel.args.get("order")
             if order is not None:
                 for o in order.expressions:
-                    add("order_by", f"ORDER BY {_sql(o)}", scope)
+                    add("order_by", f"ORDER BY {_sql(o)}", scope, o)
             limit = sel.args.get("limit")
             if limit is not None:
                 add("limit", _sql(limit), scope)
         for r in tree.find_all(exp.Round):
-            add("rounding", _sql(r), "main")
+            add("rounding", _sql(r), "main", r)
         return comps
 
     # ---- allowed / privileged
+    LOOSE_KINDS = ("select_column", "join", "rounding")   # rendering can differ from the raw snippet
+
     def _mark_allowed(self):
         snips = []
         for raw in self.snippets:
-            forms = {norm_sql(raw), comparable_sql(raw), comparable_sql(raw, rounding=True)}
-            snips.append((forms - {""}, key_tokens(raw)))
+            plain = {norm_sql(raw), comparable_sql(raw)} - {""}
+            unrounded = {comparable_sql(raw, rounding=True)} - {""} - plain   # only for projections
+            snips.append((plain, unrounded, key_tokens(raw), raw))
         for c in self.components:
             cn = norm_sql(c.text)
             core = cn.split(" ", 1)[1] if c.kind in ("order_by", "having") and " " in cn else cn
             core = re.sub(r"^join \.\.\. on ", "", core)
-            for forms, sk in snips:
-                if any(core in f or (f in core and len(f) >= 6) for f in forms):
+            if c.kind == "table":
+                # a table is annotated only when a snippet names it as a source
+                name = re.sub(r"\s+as\s+\w+$", "", cn).split(" ")[0]
+                c.allowed = any(re.search(rf"\b(from|join)\s+{re.escape(name)}\b", raw, re.I) for *_, raw in snips)
+                continue
+            for plain, unrounded, sk, _raw in snips:
+                forms = plain | (unrounded if c.kind == "select_column" else set())
+                # the part appears inside a snippet (any kind)
+                if any(core in f for f in forms):
                     c.allowed = True
                     break
-                # structural parts render differently than the raw snippet; fall back to token cover
-                if c.keys and c.keys <= sk:
-                    c.allowed = True
-                    break
+                if c.kind in self.LOOSE_KINDS:
+                    # a snippet appears inside the part, or covers all its distinctive tokens, with
+                    # enough evidence: two non-numeric tokens, so a lone column plus a 0 cannot count
+                    if any(f in core and len(f) >= 6 for f in forms):
+                        c.allowed = True
+                        break
+                    if c.keys and c.keys <= sk and len({k for k in c.keys if not k.replace(".", "").isdigit()}) >= 2:
+                        c.allowed = True
+                        break
 
     # ---- views
     def allowed_ids(self) -> set[str]:
@@ -297,17 +334,12 @@ class ComponentMap:
         """Cheap backstop: a part counts as revealed if the reply contains all its distinctive tokens
         (or its literal text). Used alongside the LLM audit and alone if the LLM output is unusable."""
         tn = norm_sql(text)
-        low = text.lower()
         words = key_tokens(text) | {w.lower() for w in re.findall(r"[A-Za-z_]\w*", text)}
-
-        def present(k: str) -> bool:
-            return k in words or any(w in low for w in FUNC_WORDS.get(k, ()))
-
         found = set()
         for c in self.components:
             if norm_sql(c.text) and norm_sql(c.text) in tn:
                 found.add(c.id)
-            elif c.keys and all(present(k) for k in c.keys) and (len(c.keys) >= 2 or c.kind in ("limit", "table")):
+            elif c.keys and c.keys <= words and (len(c.keys) >= 2 or c.kind in ("limit", "table")):
                 found.add(c.id)
             elif c.kind == "limit":
                 n = re.search(r"\d+", c.text)
@@ -510,7 +542,7 @@ class DefendedSimulator:
             label, raw, u = self.encoder(c)
             tally("encoder", u)
             labeled.append({"text": c, "label": label, "encoder_raw": raw})
-        answerable = [x for x in labeled if not x["label"].strip("* ").lower().startswith(("unanswerable", self.unanswerable.lower()))]
+        answerable = [x for x in labeled if x["label"] != self.unanswerable]
 
         # 3. stock decoder drafts the answerable clauses; a fully unanswerable ask gets the stock refusal
         drafts = []
@@ -606,6 +638,29 @@ def _selftest():
     check("join" in kinds_allowed and "select_column" in kinds_allowed, "annotated join and AVG column marked allowed")
     check(all(not c.allowed for c in cmap.components if c.kind in ("limit", "order_by", "rounding", "filter")),
           "limit / order / rounding / filter marked privileged")
+
+    # CTE expansion: a main-query reference to a CTE column carries the CTE expression's tokens
+    cte_rec = {
+        "instance_id": "toy_cte",
+        "sol_sql": ("WITH s AS (SELECT zoneref, MAX((Cloud_Metrics->>'Noise_Db')::numeric) AS peak FROM pointcloud GROUP BY zoneref) "
+                    "SELECT si.zonelabel, ROUND(s.peak, 3) AS peak FROM s JOIN sites si ON si.zoneregistry = s.zoneref "
+                    "WHERE s.peak IS NOT NULL AND s.peak > 0 ORDER BY peak DESC, si.zonelabel LIMIT 10"),
+        "user_query_ambiguity": {"critical_ambiguity": [
+            {"term": "peak", "sql_snippet": "NULLIF(MAX((Cloud_Metrics->>'Noise_Db')::numeric), 0)"},
+            {"term": "rounding", "sql_snippet": "ROUND(s.peak, 3)"},
+            {"term": "sort", "sql_snippet": "ORDER BY peak DESC"},
+        ]},
+    }
+    cm = ComponentMap(cte_rec)
+    print(cm.listing(), "\n")
+    by = {(c.kind, c.text): c for c in cm.components}
+    check(by[("select_column", "s.peak")].keys == {"cloud_metrics", "noise_db"}, f"CTE column expanded for keys: {by[('select_column', 's.peak')].keys}")
+    check(by[("select_column", "s.peak")].allowed, "expanded CTE column matches the annotated formula")
+    check(all(c.allowed for c in cm.components if c.kind == "rounding"), "rounding matched its snippet")
+    check(by[("order_by", "ORDER BY peak DESC")].allowed and not by[("order_by", "ORDER BY si.zonelabel")].allowed,
+          "annotated sort allowed, tie-break privileged")
+    check(all(not c.allowed for c in cm.components if c.kind in ("filter", "limit")),
+          "age-style filters and LIMIT stay privileged despite shared tokens")
 
     q = "How exactly should 'noise' be measured, and how should the output be sorted?"
     check(len(heuristic_split(q)) == 2, f"compound probe splits into 2 clauses: {heuristic_split(q)}")
