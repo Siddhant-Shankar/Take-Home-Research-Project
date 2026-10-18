@@ -33,8 +33,7 @@ This follows from the budget formula 3 + 3 + 2·(critical + knowledge ambiguitie
 Edge cases:
 
 - (budget − 6 − P) odd or negative: the formula or P has changed. Log it; do not guess k.
-- k = 0: there is no AMB path. Skip definitional clauses; spend asks on the LOC-reliable slots alone (exclusions first, then limit).
-  - Held-out deviation (recorded Oct 17): cold\_chain\_pharma\_compliance\_20 (k = 0, 4 asks at P = 10) asked exclusions, null handling, output columns and tie handling, each alone. It did not ask about the limit, and tie handling is not in the Rule 4 table.
+- k = 0: there is no AMB path. Skip definitional clauses. Asks = floor((P − 1) ÷ 2): 2 at P = 6, 4 at P = 10. Spend them on slots asked alone, LOC-reliable first (exclusions, then limit, then nulls, then the rest of Rule 4 order), skipping any slot the question already states (a stated top-N skips the limit slot). \[Refined Oct 17 after stage 1. Earlier text: spend asks on the LOC-reliable slots alone, exclusions first, then limit. Task affected: cold\_chain\_pharma\_compliance\_20, which ran 0/3 under the earlier text with its own recorded deviation; the refined text describes what that run did, so it is not evidence for the rule.\]
 
 k sets the ask count (Rule 3) and tells Rule 2 how many terms to look for, including how many are nested rather than visible.
 
@@ -47,13 +46,14 @@ Apply these five steps to the public question text, after get\_schema and get\_a
    2. Frequency or degree superlatives and vague quantifiers: most, least, often, top, best, high, low, recent, active, popular, frequently.
    3. Unqualified categorization nouns with no stated criteria: groups, categories, tiers, clusters, buckets, segments, bands.
    4. Relative or comparative phrases: for how X they are, based on X, relative to, compared with, adjusted for.
-2. **Exclude** any candidate that is (a) a quoted string, treated as a literal value; (b) an exact or near match to a schema table or column name or its column meaning; (c) an exact match to a KB entry name; (d) a plain column reference in the output list (driver IDs).
+2. **Exclude** any candidate that is (a) a quoted string that looks like a data value (an ID pattern, a proper noun, a code), treated as a literal; a quoted common-noun phrase ('uniqueness' score) is a candidate, since quotes there mark vagueness, not a value \[refined Oct 17 after stage 1; earlier text: every quoted string is a literal and excluded; task affected: insider\_trading\_5, which ran with the 'uniqueness' score as an anchor before this refinement, so the refinement makes that run compliant after the fact\]; (b) an exact or near match to a schema table or column name or its column meaning; (c) an exact match to a KB entry name, ignoring case and singular versus plural, with the question's phrase quoted in full; a substring of a KB name is not a match \[clarified Oct 17 after stage 1 to resolve three rulings under one rule: insider\_trading\_5 'high-risk' is a substring and kept; mental\_health\_14 'high-risk patients' matches High-Risk Patient apart from the plural and is excluded; hulushows\_14 'maximum promo saturation ratio' matches Maximum Promo Saturation Ratio and is excluded\]; (d) a plain column reference in the output list (driver IDs).
 3. **Merge co-referents.** The Return clause usually re-names quantities already introduced. Collapse phrases denoting the same thing into one candidate and keep the first surface form as the anchor, since that is where the annotation attaches.
 4. **Take the top k by class rank.** Candidates below the cut become slot content, not anchors (based on performance → the cut-off slot).
 5. **If candidates < k, the remainder are nested.** They live inside the definition of a surface term and appear only in a decoder reply. After each broad definitional ask, scan the reply for terms not in schema or KB and not defined in the reply itself. Those are anchors for follow-up hooks. Expect exactly k − (surface count) of them.
-6. **If a candidate is dropped under step 2c (exact match to a visible KB entry name), take anchors from that entry's definition text.** Apply steps 1 to 4 to the definition text instead of the question. Added Oct 17 for hulushows\_14, after the held-out draw and before any of its hooked asks were written (decision recorded in `FIles/README (2).md`, commit a90e1c0).
 
-**Anchor phrasing.** Quote the term as it first appears in the question. A longer containing span is safe: hook\_columns quoted the full clause and was still labeled most often on 3/3 reps. When the span is unclear, quote up to the clause boundary rather than guessing the short form.
+**Step 6 (decision recorded Oct 17 before any held-out simulator call; two clauses refined later, each marked).** When steps 1–4 leave zero surface anchors but k > 0, the ambiguities sit inside the KB entry that caused the exclusion. Read that entry's description and definition fields (both agent-visible) and run steps 1–4 on their text: terms they use that are neither schema names nor other KB entry names become the anchors. Step 6 anchors count as surface anchors for the nested count (nested expected = k − step-6 anchors). Step 3's merge applies to the entry's own text as well: a superlative or degree form of the dropped term found there ('most saturated', 'overloaded') co-refers with it and is dropped with it, not promoted to an anchor \[clarified Oct 17 after phase A was written for other tasks and before any hulushows probe; earlier text read only the definition field and did not apply the merge to the entry's text\]. If that yields nothing, fall to the k = 0 path and record a Rule 2 failure for the task \[fallback clause added Oct 17 after stage 1; not part of the pre-run decision\]. First use: hulushows\_14, where the full question phrase 'maximum promo saturation ratio' is an exact match to the KB entry Maximum Promo Saturation Ratio.
+
+**Anchor phrasing.** Quote the term as it first appears in the question. A longer containing span is safe: hook\_columns quoted the full clause and was still labeled most often on 3/3 reps. When the span is unclear, quote up to the clause boundary rather than guessing the short form. The bare anchor 'most often' was labeled on 15 of 15 reps in the fake\_account\_2 validation, so the short form is safe when Rule 2 gives it.
 
 **Dev sanity check** (circular; dev terms were annotation-informed):
 
@@ -106,6 +106,27 @@ Slots 3 and 4 were the same WHERE clause on fake\_account\_2. A merged slot (sho
 
 When the ask count is smaller than the number of slots with a plausible gold counterpart, drop from the bottom of this table first.
 
+**When asks exceed the six slots** (k ≥ 3 at P = 10): after slot 6, remaining asks go first to a standalone broad definitional ask for each surface term that has not yet anchored a hook, then to hooks anchored on nested terms (slots 4–6 only; see batch addendum decision 6), then stop. Unspent coins are fine; a seventh slot is not invented.
+
+## Batch addendum: later asks after the first replies (Oct 17, 2026)
+
+Written after stage 1 results for six prewritten held-out tasks and after the phase A replies for three others were read, and before any phase B question was written. It settles how the procedure runs when asks are sent as single-turn batches instead of one live conversation. It names no task-specific terms.
+
+**Why a split exists.** Procedure step 4 assumes the agent reads each reply before choosing the next ask. The batch simulator takes all of a task's questions up front, so for tasks where k exceeds the surface count the asks are written in two phases: phase A is slots 1–3 (columns, cardinality, exclusions) hooked on the surface anchors; phase B is every remaining ask, written after the phase A replies are read. Tasks where k equals the surface count have all asks written up front and are unaffected.
+
+**Decisions.**
+
+1. **Which replies to scan:** rep 1 only. The frozen conditions use rep 1 answers, and a live agent sees one reply per ask. Reps 2 and 3 are not read for anchors.
+2. **Which asks to scan:** hooked asks (family policy\_v3) only. The broad `v3_broad*` asks belong to the amb\_only condition in stage 2; a live agent on the frozen procedure would not have asked them, so terms found only there never become frozen anchors.
+3. **What counts as surfaced:** a term in a rep-1 hooked reply that is not a schema table, column or JSON field name (a near match such as a spaced or lower-cased column name counts as the column and is excluded), not a field named in the column meanings, not a visible KB entry name, and not defined in the same reply (a formula or criterion given alongside it means it is defined; solar's system unavailability is the precedent). Terms that fail any test are slot content, not anchors.
+4. **Count mismatch:** if more terms surface than k − surface, keep them in order of first appearance across slots 1, 2, 3, up to k − surface; the rest are slot content. If fewer surface, including none, the remaining slots cycle the surface anchors.
+5. **Which slots a nested anchor gets:** the remaining Rule 4 slots in order (nulls, table, sort). In a live run the agent would have hooked a nested term as soon as it surfaced, possibly on slot 2 or 3; the batch split gives nested anchors only the lower slots. This is accepted and recorded as a deviation rather than allowing a higher slot to repeat, so that every held-out task runs under one procedure. The hook's term clause elicits the definition whatever slot carries it.
+6. **Broad asks:** procedure step 5 and the beyond-six rule use the same mechanism. Step 5 fires when nested terms are expected and none surfaced under decisions 1–3: the next ask is a broad question on the surface anchor most likely to contain them, with id `v3_step5`, family policy\_v3, taking the place of the lowest-priority remaining slot. Beyond-six asks take ids `v3_extra1`, `v3_extra2`, family policy\_v3, and go: branch 1, a broad ask for a surface term that has not anchored a hook; branch 2, a nested-term hook on the highest-priority slot from 4–6 that anchor has not yet had, never slots 1–3; if it has had all of 4–6, fall to branch 3; branch 3, unspent. Stage 2 `v3_broad*` ids are never reused for frozen asks.
+7. **Skipped slots:** a slot whose answer the rep-1 hooked replies have already given in full is skipped (the fake\_account\_2 precedent: a columns reply carrying sort direction). The freed ask goes to step 5 if it applies, else to the next Rule 4 slot, else unspent.
+8. **Zero-surface tasks (Rule 2 step 6)** get the same split: step 6 anchors take slots 1–3 in phase A, and phase B is written after those replies are read. Step 6 reads the KB entry's description and definition fields, both of which are agent-visible, and a surface candidate that co-refers with the dropped term (a superlative form of it, say) is merged into it under Rule 2 step 3 and dropped with it, so the task counts as zero-surface; the same merge applies to superlative or degree forms of the dropped term found in the entry's own text, which are not promoted to anchors. **Tasks whose Rule 2 surface count is below k** get the split; tasks where it equals k do not.
+
+**Caveats for the write-up.** The claim in Rule 3 that single-turn runs represent a continuous transcript holds for the prewritten tasks outright, and for phase B tasks only because decisions 1 and 2 restrict the scan to what a live agent would have seen. Decision 5 means nested anchors never occupy slots 1–3 in the batch, which a live agent might have done; this is the one place the batch procedure is weaker than the live one.
+
 ## Procedure
 
 1. Read the budget from the first system note. k = (budget − 6 − P) ÷ 2 with P = 10 unless the run config says otherwise. Asks = floor((P − 1 + 2k) ÷ 2).
@@ -119,19 +140,64 @@ When the ask count is smaller than the number of slots with a plausible gold cou
 
 Stop condition: 2 × asks + executes ≤ budget − 5 at all times. If a reply resolves a lower-priority slot unprompted (a columns reply carrying sort direction), skip that slot and move down the list.
 
-**Validation before held-out.** On fake\_account\_2 at P = 6 this procedure yields three hooks (columns, cardinality, exclusions) and no broad ask, which is the budget\_min condition that passed 3/3 at 13 coins. That is a reconstruction match, not a run of the frozen procedure: budget\_min's answers came from separate single-turn probes. No dev task has yet been passed by the procedure run end to end. Required order: run the frozen procedure once on fake\_account\_2, confirm it reproduces the pass, commit this note, then choose the held-out tasks.
+**Validation on fake\_account\_2 (Oct 17, 2026): passed.** The frozen procedure was run end to end with the bare anchor 'most often' and slots 1–5 (`probes/policy_v3_fake_account_2.jsonl`, `audit/policy_v3_plan.json`). All 15 simulator reps were labeled `most often`. Results, rep-1 answers, 3 generator reps each:
 
-**Validation result (Oct 17).** Run end to end on fake\_account\_2 with fresh asks (`probes/policy_v3_fake_account_2.jsonl`, plan `audit/policy_v3_plan.json`, anchor 'most often'). All 15 asks (5 slots × 3 reps) labeled AMB. Generator conditions use the rep-1 answers, 3 generator reps each:
+| Condition | P | Budget | Asks | Passed | Coins |
+| --- | --- | --- | --- | --- | --- |
+| none | 6 | 14 | 0 | 0/3 | 7 |
+| p6 (slots 1–3) | 6 | 14 | 3 | 3/3 | 13 |
+| p6 minus cardinality | 6 | 14 | 2 | 0/3 | 11 |
+| p10 (slots 1–5) | 10 | 18 | 5 | 3/3 | 17 |
+| p10 minus cardinality | 10 | 18 | 4 | 0/3 | 15 |
 
-| Condition | Asks | Passed | Coins | Budget |
-| --- | --- | --- | --- | --- |
-| none | 0 | 0/3 | 7 | 14 (P = 6) |
-| p6 | 3 | 3/3 | 13 | 14 (P = 6) |
-| p6\_minus\_cardinality | 2 | 0/3 | 11 | 14 (P = 6) |
-| p10 | 5 | 3/3 | 17 | 18 (P = 10) |
-| p10\_minus\_cardinality | 4 | 0/3 | 15 | 18 (P = 10) |
+Removing the cardinality answer (slot 2) drops the pass to 0/3 at both P values, so this is certificate #1 under the frozen procedure, not a reconstruction match. The P = 10 allocation (k + 4 asks) passed within budget on this task. Caveats carried from dev: the row limit also leaks via LOC when asked alone; one task.
 
-The procedure reproduces the pass within budget at both patience values, and dropping the cardinality answer removes it at both; slots 4-5 do not compensate. Still one task, where the deciding fact also leaks alone via LOC, so this shows the procedure reproduces, not that it generalizes.
+## Held-out set (fixed before any run)
+
+Seeded draw 20261017, one Query task per eligible database, dev tasks and their databases excluded. Rule 2 applied to the public question only; exclusion steps (b) and (c) were run against schema and KB before any probe was placed. P = 10. The anchors column was fixed before each task's first run (for mental\_health\_14, the alternate, that was after stage 1); the last column records what the phase A scan showed afterwards and is not part of the pre-run record.
+
+| # | Task | k | Budget | Asks | Rule-2 anchors (fixed before the task's first run; exclusion b, c applied) | Nested expected | Phase A scan, after run (addendum decisions 1–3) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | hulushows\_14 | 4 | 24 | 8 | 'maximum promo saturation ratio' DROPPED (exact KB match, step 2c); 'most promo-saturated' merges into it and is dropped. Step 6 on KB entry 82 description and definition: 'promotional messages'; 'most saturated' and 'overloaded' merge into the dropped term. One step-6 anchor. Cannot be a certificate: none passes 3/3. | 3 | not yet run |
+| 2 | mental\_health\_14 (alternate 1; robot\_fault\_prediction\_11 reported invalid: gold answers a different question) | 3 | 22 | 7 | 'go-to' experts (merges most experience); 'most complex patient cases' (merges these high-risk patients). 'high-risk patients' excluded: matches KB High-Risk Patient apart from the plural. | 1 | not yet run |
+| 3 | planets\_data\_14 | 3 | 22 | 7 | 'type of light filter' (merges group the filters together properly) | 2 | nothing surfaced: the one candidate appears only in reps 2–3 and the broad reply; 'photometric band' is the Photo\_Band field |
+| 4 | exchange\_traded\_funds\_18 | 2 | 20 | 6 | 'value funds' | 1 | nothing surfaced: every reply term is a schema field or KB name |
+| 5 | crypto\_exchange\_19 | 3 | 22 | 7 | 'arbitrage opportunity' (substring of KB High-Quality Arbitrage Opportunity: kept); 'significant' | 1 | nothing surfaced; labeled as one merged term, significant arbitrage, 15/15 |
+| 6 | insider\_trading\_5 | 2 | 20 | 6 | the 'uniqueness' score (quoted common noun, kept under 2a as refined after the run); 'high-risk' (substring of a KB name: kept) | 0 | n/a, all asks prewritten |
+| 7 | virtual\_idol\_9 | 1 | 18 | 5 | 'top fans'; leftover cohort analysis, milestones → slot content | 0 | n/a |
+| 8 | disaster\_relief\_11 | 1 | 18 | 5 | 'overall efficiency' (merges cost per person) | 0 | n/a |
+| 9 | reverse\_logistics\_1 | 2 | 20 | 6 | 'overall handling cost'; 'major fee components' | 0 | n/a |
+| 10 | cold\_chain\_pharma\_compliance\_20 | 0 | 16 | 4 | none (k = 0 path) | 0 | n/a |
+
+Phase B asks for planets, etf and crypto, and the phase A asks for hulushows and mental\_health, were drafted after the batch addendum text above was final and are committed after it (`probes/policy_v3_heldout_phaseB.jsonl`). Derivation under the addendum: planets `v3_step5`, `v3_slot5`, `v3_slot6` (nulls skipped, decision 7; ask 7 unspent); etf `v3_step5`, `v3_slot4`, `v3_slot5` (sort skipped, single count); crypto `v3_step5`, `v3_slot4`, `v3_slot5` (sort skipped, single label; ask 7 unspent); hulushows and mental\_health slots 1–3 plus amb\_only broad asks, with asks 4 onward written after their rep-1 replies are read.
+
+No anchor matches a schema table or column name.
+
+Stress cases named in advance: #7 (class rank picks top fans over cohort analysis and milestones; if the label is one of those, Rule 2 step 1 needs an analysis-noun class), #1 (zero surface anchors; first use of step 6), #3 (surface count far below k; tests step 5), #10 (no AMB path). Observation from phase A, recorded but not acted on mid-run: crypto's label was the merged phrase significant arbitrage, so Rule 2 step 3 should also merge a degree adjective into the noun it modifies; both separate anchors were still labeled, so no disclosure was lost.
+
+Recorded deviations in the stage-1 probes: the table slot uses schema-free wording (which table or records should it be computed from?) so no probe waits on get\_schema. cold\_chain\_pharma\_compliance\_20 asks exclusions, nulls, columns, then tie handling; the limit slot is skipped because the question states top 3, and tie handling is tagged slot order in the probe file and is an ordering sub-question not in the Rule 4 table as written. If cold\_chain passes, the tie answer is treated as a non-policy answer in the ablation. Hook wording: the planets, etf and crypto hooks say "determined" and the hulushows hooks say "counted" in place of "measured"; the term clause is otherwise the template.
+
+**Run order.** Stage 1, all 10 tasks: none and frozen P = 10. Stage 2, only tasks where frozen passed 3/3: amb\_only (one broad ask per surface anchor, no slots) and one ablation per answer. Stage 3, optional, certificate candidates only: frozen at P = 6. Certificate #2 = frozen pass within budget, amb\_only below 3/3, and at least one ablation below 3/3.
+
+Alternates, in order, only for a broken task: mental\_health\_14, cross\_border\_1, households\_7, archeology\_scan\_10, cybermarket\_pattern\_2.
+
+## Held-out results (after runs)
+
+Recorded from the stage 1 and stage 2 reconstruct outputs. Generator handling as on dev: gemini-3.8-flash writes SQL from question, schema, agent-visible KB and the rep-1 answers of the condition; executes are used only for its own error fixes, up to 2; graded by execute\_submit\_action phase 1; 3 generator reps per condition; coins computed at P = 10. Stage 1 rows whose generated SQL was prose or cut off mid-query (insider\_trading\_5 and virtual\_idol\_9, 8 of 48 rows) were classed as generator failures, not evidence; both tasks were rerun, all conditions, with `reconstruct.py` resampling any generation that does not look like complete SQL before executing it (no execute coin).
+
+| Task | none | frozen\_p10 | amb\_only | ablations | Verdict |
+| --- | --- | --- | --- | --- | --- |
+| reverse\_logistics\_1 | 0/3 (6) | 3/3, 18 of 20 | 0/3 (10–11) | minus slot 1: 1/3; slot 2: 2/3; slot 3: 3/3; slot 4: 3/3; slot 5: 2/3; slot 6: 3/3 (16 each) | Meets the certificate #2 rule; ablation drops are small at n = 3, 10-rep run in progress |
+| insider\_trading\_5 | 0/3 (rerun) | 2/3, 19 of 20 (rerun) | — | — | Below 3/3; no stage 2. Stage 1 gave 1/3 with generator failures, which is why it was rerun |
+| virtual\_idol\_9 | 0/3 (rerun) | 0/3, 16 of 18 (rerun) | — | — | Fail, wrong result 3/3 |
+| disaster\_relief\_11 | 0/3 | 0/3, 16 of 18 | — | — | Fail |
+| cold\_chain\_pharma\_compliance\_20 | 0/3 | 0/3, 14–15 of 16 | n/a (k = 0) | — | Fail under the k = 0 path as then written |
+| hulushows\_14 | 3/3 (7) | not run | — | — | Passes with no answers; cannot be a certificate |
+| robot\_fault\_prediction\_11 | 0/3 | 0/3, 18 of 22 (6 asks, 7th unspent) | — | — | INVALID: gold answers a different question; replaced by mental\_health\_14 |
+| planets\_data\_14, exchange\_traded\_funds\_18, crypto\_exchange\_19 | 0/3 each (6) | pending phase B | — | — | pending |
+| mental\_health\_14 | not run | not run | — | — | pending |
+
+Figures from `bird_interact_agent/outputs/reconstruct/policy_v3_heldout_stage1.jsonl`, `policy_v3_heldout_rerun.jsonl` and `policy_v3_heldout_stage2_reverse.jsonl`; the 10-rep reverse\_logistics\_1 run will replace the n = 3 ablation figures when it finishes.
 
 ## Untested or weakly supported elements
 
@@ -139,19 +205,20 @@ Each row names the element, how much dev evidence it has, and the cheapest test 
 
 | Element | Support | Risk | Test |
 | --- | --- | --- | --- |
-| Frozen procedure end to end | Done on fake\_account\_2: 3/3 at P = 6 and P = 10, ablation 0/3 at both (see Validation result) | Only one task | Held-out runs |
-| P = 10 allocation (k + 4 asks) | All dev evidence at P = 6 | Extra slots untested; no evidence they hurt either | First held-out runs at P = 10 |
-| Rule 2 term selection | Passes all three dev tasks, but dev terms were annotation-informed | Merge step (3) is the fragile part; may over- or under-count | Held-out runs; compare picked terms against labels in the first encoder output |
-| Nested-term detection (Rule 2 step 5) | Not exercised: solar's broad reply resolved down and System Unavailability with no follow-up | Reply may not name nested terms explicitly | A task with k > surface count where hooks alone do not pass |
+| Frozen procedure end to end | Passed on fake\_account\_2 (Oct 17): p6 3/3, p10 3/3, ablations 0/3 | One task, k = 1 | Held-out set |
+| P = 10 allocation (k + 4 asks) | Passed within budget on fake\_account\_2 (17 of 18 coins) | One task; slots 4–5 added nothing the pass needed | Held-out tasks with k ≥ 2 |
+| Rule 2 term selection | Passes all three dev tasks, but dev terms were annotation-informed; bare anchor confirmed 15/15 AMB on fake | Merge step (3) is the fragile part; may over- or under-count | Held-out runs; compare picked terms against labels in the first encoder output |
+| Nested-term detection (Rule 2 step 5) | Not exercised: solar's broad reply resolved down and System Unavailability with no follow-up | Reply may not name nested terms explicitly | Held-out #1 and #3 (surface count far below k) |
 | Standalone broad ask (procedure step 5) | One task (solar chain\_1, 3/3) whose gold is a single NULL row | Weakest element; a hook may do as well | Run solar hooks-only (filter, limit, columns) without chain\_1; not yet run as a condition |
+| Asks beyond six slots rule | Untested; drafted in the plan file before stage 1 (not committed), added to this doc Oct 17 after stage 1 | Broad asks on already-anchored terms may add nothing | Held-out tasks with k ≥ 3 |
 | Merged exclusions + nulls slot | Untested; the two were one WHERE clause on fake only | Could return UNA or answer only one half | Run on fake\_account\_2, where each half discloses 3/3 alone, so a half-answer is detectable |
-| Always hook | No case where hooking reduced disclosure; 45/45 AMB labels | None observed | Carry forward |
+| Always hook | No case where hooking reduced disclosure; 60/60 AMB labels across dev and validation | None observed | Carry forward |
 | Source table slot | 3/3 on sports, nothing on fake or solar | Low expected yield | Keep at priority 5 |
-| Slot priority order | Fit to trials 4 and 5 | Over-fit to three tasks | Held-out pass rate by slot dropped |
+| Slot priority order | Fit to trials 4 and 5; order held on fake validation | Over-fit to three tasks | Held-out pass rate by slot dropped |
 
 ## Per-task verdicts and open items
 
-**fake\_account\_2** (k = 1, budget 14 at P = 6). Certificate candidate. budget\_min (hooked columns, limit, filter) passed 3/3 at 13 coins; dropping the limit hook fell to 0/3 at 11. The deciding fact is also reachable alone via LOC (2/3), so the hook made disclosure reliable rather than possible. Caveats: term chosen with knowledge of the annotation; slots chosen after seeing trials 4 and 5.
+**fake\_account\_2** (k = 1, budget 14 at P = 6, 18 at P = 10). **Certificate #1.** Dev reconstruction budget\_min passed 3/3 at 13 coins and the frozen procedure reproduced it end to end on Oct 17 (p6 3/3 at 13, p10 3/3 at 17; both ablations without the cardinality answer 0/3). The deciding fact is also reachable alone via LOC (2/3), so the hook made disclosure reliable rather than possible. Caveats: term chosen with knowledge of the annotation on dev; the bare anchor was then confirmed 15/15 in validation.
 
 **solar\_panel\_1** (k = 3, budget 18 at P = 6). Honest pass but a weak test. amb\_only (one broad question) passed 3/3 at 8 coins; gold is a single NULL row. Two of the three labeled terms are nested and not in the question; the broad reply resolved them without follow-up.
 
@@ -161,42 +228,6 @@ Each row names the element, how much dev evidence it has, and the cheapest test 
 - hook\_filter returned no races or drivers excluded. If the gap is in filtering, the decoder under-disclosed relative to gold's effective row set (for example gold dropping \\N or empty times through casting rather than an explicit WHERE). That would be a simulator finding, not a policy miss.
 
 Open runs: amb\_only + chain\_4 (cheap, clean); budget\_min, full\_minus\_tables and full\_minus\_columns (not run, credits ran out); a diff of generated vs. gold on the WHERE and pole subquery (local, no rerun).
-
-## Held-out run (Oct 17)
-
-**Draw.** Query-category tasks only, excluding the seven dev and trial tasks and every database they come from (268 candidates, 15 databases). Seed 20261017: shuffle the databases, one task per database. First ten used; alternates in order: mental\_health\_14, cross\_border\_1, households\_7, archeology\_scan\_10, cybermarket\_pattern\_2. P = 10.
-
-**Anchors fixed before running** (from `probes/policy_v3_heldout_all.jsonl`, commit a90e1c0):
-
-| Task | k | Anchors |
-| --- | --- | --- |
-| hulushows\_14 | 4 | 'promo saturation ratio' dropped (exact KB name, step 2c); anchors pending under step 6 |
-| robot\_fault\_prediction\_11 | 3 | 'failure rates', 'high reliability risk', 'high-wear' jobs |
-| planets\_data\_14 | 3 | 'type of light filter' (nested terms pending) |
-| exchange\_traded\_funds\_18 | 2 | 'value funds' (nested term pending) |
-| crypto\_exchange\_19 | 3 | 'arbitrage opportunity', 'significant' (nested term pending) |
-| insider\_trading\_5 | 2 | 'uniqueness' score, 'high-risk' |
-| virtual\_idol\_9 | 1 | 'top fans' |
-| disaster\_relief\_11 | 1 | 'overall efficiency' |
-| reverse\_logistics\_1 | 2 | 'overall handling cost', 'major fee components' |
-| cold\_chain\_pharma\_compliance\_20 | 0 | none (k = 0 path; 'lane risk potential' used only in an ungraded diagnostic ask) |
-
-Other decisions recorded before running: the table slot uses schema-free wording ("which table or records should it be computed from?"); robot\_fault\_prediction\_11 leaves its 7th ask unspent.
-
-**Generator handling.** In stage 1, insider\_trading\_5 and virtual\_idol\_9 had runs whose generated SQL was prose or cut off mid-query (8 of 48 rows). Those rows were classed as generator failures, not evidence. Both tasks were rerun, all conditions, with `reconstruct.py` resampling any generation that does not look like complete SQL before executing it (no execute coin). In the rerun, the rejected samples were about 640 completion tokens of prose, well under the token cap, so the cause is the model writing prose in place of SQL, not output truncation by the cap.
-
-**Results so far** (3 generator reps each; coins at P = 10):
-
-| Task | No answers | Frozen procedure | Notes |
-| --- | --- | --- | --- |
-| reverse\_logistics\_1 | 0/3 | 3/3, 18 of 20 | Stage 2: amb\_only 0/3; dropping slot 1, 2 or 5 gives 1/3, 2/3, 2/3; dropping 3, 4 or 6 gives 3/3 |
-| insider\_trading\_5 | 0/3 (rerun) | 2/3, 19 of 20 (rerun) | Below the 3/3 rule for stage 2 |
-| virtual\_idol\_9 | 0/3 (rerun) | 0/3, 16 of 18 (rerun) | Wrong result each time |
-| disaster\_relief\_11 | 0/3 | 0/3, 16 of 18 | Gold joins through a table the answers never named |
-| cold\_chain\_pharma\_compliance\_20 | 0/3 | 0/3, 14 to 15 of 16 | Output column missing; the columns ask came back UNA |
-| hulushows\_14 | 3/3 | not run | Passes with no answers: an honest pass, not a certificate |
-| robot\_fault\_prediction\_11 | 0/3 | 0/3, 18 of 22 | Invalid task: the gold SQL answers a different question from the public question and its annotations (same in the upstream ground-truth file). Replaced by the first alternate, mental\_health\_14; reported both ways |
-| planets\_data\_14, exchange\_traded\_funds\_18, crypto\_exchange\_19 | 0/3 | pending phase B | |
 
 ## Separate finding: parser pass-through
 
