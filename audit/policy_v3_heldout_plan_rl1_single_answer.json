@@ -1,0 +1,46 @@
+{
+ "reverse_logistics_1": {
+  "only_v3_slot1": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   }
+  ],
+  "only_v3_slot2": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   }
+  ],
+  "only_v3_slot3": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   }
+  ],
+  "only_v3_slot4": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot4",
+    "rep": 1
+   }
+  ],
+  "only_v3_slot5": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "only_v3_slot6": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot6",
+    "rep": 1
+   }
+  ]
+ }
+}
