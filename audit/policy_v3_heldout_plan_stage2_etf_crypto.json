@@ -1,0 +1,349 @@
+{
+ "exchange_traded_funds_18": {
+  "amb_only": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_broad1",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot1": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot2": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot3": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_step5": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot4": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot5": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   }
+  ]
+ },
+ "crypto_exchange_19": {
+  "amb_only": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_broad1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_broad2",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot1": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot2": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot3": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_step5": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot4": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ],
+  "frozen_minus_v3_slot5": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   }
+  ]
+ }
+}
