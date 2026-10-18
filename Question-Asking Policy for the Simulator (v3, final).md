@@ -185,7 +185,7 @@ Alternates, in order, only for a broken task: mental\_health\_14, cross\_border\
 
 ## Held-out results (after runs)
 
-Recorded from the stage 1 and stage 2 reconstruct outputs. Generator handling as on dev: gemini-3.8-flash writes SQL from question, schema, agent-visible KB and the rep-1 answers of the condition; executes are used only for its own error fixes, up to 2; graded by execute\_submit\_action phase 1; 3 generator reps per condition; coins computed at P = 10. Stage 1 rows whose generated SQL was prose or cut off mid-query (insider\_trading\_5 and virtual\_idol\_9, 8 of 48 rows) were classed as generator failures, not evidence; both tasks were rerun, all conditions, with `reconstruct.py` resampling any generation that does not look like complete SQL before executing it (no execute coin).
+Recorded from the stage 1 and stage 2 reconstruct outputs. All pass counts are phase 1 passes (0.7 of 1.0); phase 2 was not attempted (see "Known scope issue" below). Generator handling as on dev: gemini-3.8-flash writes SQL from question, schema, agent-visible KB and the rep-1 answers of the condition; executes are used only for its own error fixes, up to 2; graded by execute\_submit\_action phase 1; 3 generator reps per condition; coins computed at P = 10. Stage 1 rows whose generated SQL was prose or cut off mid-query (insider\_trading\_5 and virtual\_idol\_9, 8 of 48 rows) were classed as generator failures, not evidence; both tasks were rerun, all conditions, with `reconstruct.py` resampling any generation that does not look like complete SQL before executing it (no execute coin).
 
 | Task | none | frozen\_p10 | amb\_only | ablations | Verdict |
 | --- | --- | --- | --- | --- | --- |
@@ -202,6 +202,17 @@ Recorded from the stage 1 and stage 2 reconstruct outputs. Generator handling as
 | mental\_health\_14 | 0/3 (6–7) | 0/3, 18–19 of 22 | — | — | Fail, wrong result 3/3 |
 
 Figures from `bird_interact_agent/outputs/reconstruct/`: `policy_v3_heldout_stage1.jsonl`, `policy_v3_heldout_rerun.jsonl`, `policy_v3_heldout_stage2_reverse.jsonl`, `rl1_frozen_reps10.jsonl`, `rl1_reps10.jsonl`, `policy_v3_heldout_stage1b.jsonl` and `policy_v3_heldout_stage1c.jsonl`. No generator failures in any of the 10-rep, stage 1b or stage 1c rows.
+
+## Known scope issue: phase 2 was never evaluated (recorded Oct 17, after all held-out runs)
+
+Every pass in this document is a **phase 1 pass, worth 0.7 of the task's 1.0** (`phase_rewards = {1: 0.7, 2: 0.3}`, action\_handler.py:344). `audit/reconstruct.py` grades with the official `execute_submit_action` and keeps only the phase 1 flag; the harness message "Moving to Phase 2" is printed but no follow-up is ever attempted. This was not a recorded decision. Phase 2 was seen in trial 1 (stock agent on solar\_panel\_1: phase 1 pass, phase 2 fail, plus the scoring bug that overwrites the 0.7), and from trial 4 onward the reconstruct pipeline and this policy addressed phase 1 only, without the choice being written down. Likely reasons, reconstructed after the fact: the starter task's certificate is about rebuilding the hidden solution, and the annotated ambiguities the simulator guards are all phase 1; the stock agent passed phase 2 on 0 of 7 dev tasks because the budget always ran out first.
+
+What this means for the results:
+
+- **Claims are scoped to phase 1.** "Reconstructs the hidden solution" refers to the phase 1 query. No result here says anything about full-task reward.
+- **The AMB hook cannot apply to phase 2.** In phase 2 the simulator receives an empty ambiguity list and the follow-up's gold SQL (prompt\_utils.py:159 and :189). All 600 tasks have a follow-up and none carries ambiguity annotations, so phase 2 behaves like the k = 0 path: only LOC can disclose. Whether LOC leaks the follow-up's gold SQL is untested.
+- **The frozen policy leaves no budget for phase 2.** The budget is one pool for both phases (main.py:111-135); frozen runs spend 16 to 19 of 18 to 24 coins on phase 1, which leaves less than a phase 2 submit (3 coins).
+- **End-to-end reward is measured only by the continuous transcripts**, which run the official agent loop through phase 2.
 
 ## Untested or weakly supported elements
 
