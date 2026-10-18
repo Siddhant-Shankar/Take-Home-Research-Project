@@ -481,7 +481,7 @@ class DefendedSimulator:
 
         def encoder(q):
             raw, usage = call(build_user_encoder_prompt(q, status, db_schema), model)
-            return parse_encoder_response(raw), raw, usage
+            return parse_encoder_response(raw or ""), raw, usage
 
         def decoder(q, label):
             return call(build_user_decoder_prompt(q, label, status, db_schema), model)
