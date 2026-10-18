@@ -32,7 +32,8 @@ def summarize(rows, key=lambda r: "all"):
             a["err"] += 1
             continue
         d = r.get("defense", {})
-        answered = r.get("answered", r.get("label") != "UNA")
+        # stock rows have no "answered" field: a stock ask is answered unless the encoder said unanswerable()
+        answered = r["answered"] if "answered" in r else not str(r.get("label", "")).strip("* ").lower().startswith(("unanswerable", "una"))
         a["answered"] += bool(answered)
         if answered and d.get("revealed_allowed"):
             a["allowed"] += 1

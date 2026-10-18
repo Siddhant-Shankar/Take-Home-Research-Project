@@ -510,7 +510,7 @@ class DefendedSimulator:
             label, raw, u = self.encoder(c)
             tally("encoder", u)
             labeled.append({"text": c, "label": label, "encoder_raw": raw})
-        answerable = [x for x in labeled if x["label"] != self.unanswerable]
+        answerable = [x for x in labeled if not x["label"].strip("* ").lower().startswith(("unanswerable", self.unanswerable.lower()))]
 
         # 3. stock decoder drafts the answerable clauses; a fully unanswerable ask gets the stock refusal
         drafts = []
