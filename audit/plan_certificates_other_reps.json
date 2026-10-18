@@ -1,0 +1,124 @@
+{
+ "reverse_logistics_1": {
+  "frozen_p10_rep2": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 2
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 2
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 2
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot4",
+    "rep": 2
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot5",
+    "rep": 2
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot6",
+    "rep": 2
+   }
+  ],
+  "frozen_p10_rep3": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 3
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 3
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 3
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot4",
+    "rep": 3
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot5",
+    "rep": 3
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot6",
+    "rep": 3
+   }
+  ]
+ },
+ "fake_account_2": {
+  "p10_rep2": [
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot1",
+    "rep": 2
+   },
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot2",
+    "rep": 2
+   },
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot3",
+    "rep": 2
+   },
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot4",
+    "rep": 2
+   },
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot5",
+    "rep": 2
+   }
+  ],
+  "p10_rep3": [
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot1",
+    "rep": 3
+   },
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot2",
+    "rep": 3
+   },
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot3",
+    "rep": 3
+   },
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot4",
+    "rep": 3
+   },
+   {
+    "trial": "policy_v3",
+    "question_id": "v3_slot5",
+    "rep": 3
+   }
+  ]
+ }
+}
