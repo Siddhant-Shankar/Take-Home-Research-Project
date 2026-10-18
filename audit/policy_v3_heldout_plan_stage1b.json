@@ -1,0 +1,104 @@
+{
+ "planets_data_14": {
+  "frozen_p10": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot6",
+    "rep": 1
+   }
+  ]
+ },
+ "exchange_traded_funds_18": {
+  "frozen_p10": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ]
+ },
+ "crypto_exchange_19": {
+  "frozen_p10": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_step5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ]
+ }
+}
