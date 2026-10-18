@@ -189,17 +189,19 @@ Recorded from the stage 1 and stage 2 reconstruct outputs. Generator handling as
 
 | Task | none | frozen\_p10 | amb\_only | ablations | Verdict |
 | --- | --- | --- | --- | --- | --- |
-| reverse\_logistics\_1 | 0/3 (6) | 3/3, 18 of 20 | 0/3 (10–11) | minus slot 1: 1/3; slot 2: 2/3; slot 3: 3/3; slot 4: 3/3; slot 5: 2/3; slot 6: 3/3 (16 each) | Meets the certificate #2 rule; ablation drops are small at n = 3, 10-rep run in progress |
+| reverse\_logistics\_1 | 0/3 (6) | 10/10, 18 of 20 (10 reps) | 0/10 (10–11) | 10 reps: minus slot 1 (columns): 0/10; slot 2: 10/10; slot 3: 10/10; slot 4: 10/10; slot 5: 7/10; slot 6: 8/10 (16 each). At n = 3 these were 1/3, 2/3, 3/3, 3/3, 2/3, 3/3 | Certificate #2: the columns answer is necessary (10/10 → 0/10); the slot 5 and 6 drops are not significant at n = 10 (10/10 vs 7/10, Fisher two-sided p ≈ 0.21) |
 | insider\_trading\_5 | 0/3 (rerun) | 2/3, 19 of 20 (rerun) | — | — | Below 3/3; no stage 2. Stage 1 gave 1/3 with generator failures, which is why it was rerun |
 | virtual\_idol\_9 | 0/3 (rerun) | 0/3, 16 of 18 (rerun) | — | — | Fail, wrong result 3/3 |
 | disaster\_relief\_11 | 0/3 | 0/3, 16 of 18 | — | — | Fail |
 | cold\_chain\_pharma\_compliance\_20 | 0/3 | 0/3, 14–15 of 16 | n/a (k = 0) | — | Fail under the k = 0 path as then written |
-| hulushows\_14 | 3/3 (7) | not run | — | — | Passes with no answers; cannot be a certificate |
+| hulushows\_14 | 3/3 (7) | 3/3, 16 of 24 | — | — | Passes with no answers; cannot be a certificate |
 | robot\_fault\_prediction\_11 | 0/3 | 0/3, 18 of 22 (6 asks, 7th unspent) | — | — | INVALID: gold answers a different question; replaced by mental\_health\_14 |
-| planets\_data\_14, exchange\_traded\_funds\_18, crypto\_exchange\_19 | 0/3 each (6) | pending phase B | — | — | pending |
-| mental\_health\_14 | not run | not run | — | — | pending |
+| planets\_data\_14 | 0/3 (6) | 0/3, 18 of 22 | — | — | Fail, wrong result 3/3 |
+| exchange\_traded\_funds\_18 | 0/3 (6) | 3/3, 18 of 20 | pending | pending | Stage 2 pending |
+| crypto\_exchange\_19 | 0/3 (6) | 3/3, 18 of 22 | pending | pending | Stage 2 pending |
+| mental\_health\_14 | 0/3 (6–7) | 0/3, 18–19 of 22 | — | — | Fail, wrong result 3/3 |
 
-Figures from `bird_interact_agent/outputs/reconstruct/policy_v3_heldout_stage1.jsonl`, `policy_v3_heldout_rerun.jsonl` and `policy_v3_heldout_stage2_reverse.jsonl`; the 10-rep reverse\_logistics\_1 run will replace the n = 3 ablation figures when it finishes.
+Figures from `bird_interact_agent/outputs/reconstruct/`: `policy_v3_heldout_stage1.jsonl`, `policy_v3_heldout_rerun.jsonl`, `policy_v3_heldout_stage2_reverse.jsonl`, `rl1_frozen_reps10.jsonl`, `rl1_reps10.jsonl`, `policy_v3_heldout_stage1b.jsonl` and `policy_v3_heldout_stage1c.jsonl`. No generator failures in any of the 10-rep, stage 1b or stage 1c rows.
 
 ## Untested or weakly supported elements
 
