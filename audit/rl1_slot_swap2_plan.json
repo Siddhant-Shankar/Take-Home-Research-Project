@@ -1,0 +1,164 @@
+{
+ "reverse_logistics_1": {
+  "singleturn_with_live_slot2": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "e2e_rl1_r1",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot6",
+    "rep": 1
+   }
+  ],
+  "singleturn_with_live_slot3": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "e2e_rl1_r1",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot6",
+    "rep": 1
+   }
+  ],
+  "singleturn_with_live_slot4": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "e2e_rl1_r1",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot6",
+    "rep": 1
+   }
+  ],
+  "singleturn_with_live_slot5": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "e2e_rl1_r1",
+    "question_id": "v3_slot5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot6",
+    "rep": 1
+   }
+  ],
+  "singleturn_with_live_slot6": [
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout",
+    "question_id": "v3_slot5",
+    "rep": 1
+   },
+   {
+    "trial": "e2e_rl1_r1",
+    "question_id": "v3_slot6",
+    "rep": 1
+   }
+  ]
+ }
+}
