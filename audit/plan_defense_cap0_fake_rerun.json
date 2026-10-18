@@ -1,0 +1,31 @@
+{
+ "fake_account_2": {
+  "defended_rerun": [
+   {
+    "trial": "defense_cap0_fake_rerun",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "defense_cap0_fake_rerun",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "defense_cap0_fake_rerun",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "defense_cap0_fake_rerun",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "defense_cap0_fake_rerun",
+    "question_id": "v3_slot5",
+    "rep": 1
+   }
+  ]
+ }
+}
