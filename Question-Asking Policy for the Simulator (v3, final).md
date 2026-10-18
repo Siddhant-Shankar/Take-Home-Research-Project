@@ -197,8 +197,8 @@ Recorded from the stage 1 and stage 2 reconstruct outputs. All pass counts are p
 | hulushows\_14 | 3/3 (7) | 3/3, 16 of 24 | — | — | Passes with no answers; cannot be a certificate |
 | robot\_fault\_prediction\_11 | 0/3 | 0/3, 18 of 22 (6 asks, 7th unspent) | — | — | INVALID: gold answers a different question; replaced by mental\_health\_14 |
 | planets\_data\_14 | 0/3 (6) | 0/3, 18 of 22 | — | — | Fail, wrong result 3/3 |
-| exchange\_traded\_funds\_18 | 0/3 (6) | 3/3, 18 of 20 | pending | pending | Stage 2 pending |
-| crypto\_exchange\_19 | 0/3 (6) | 3/3, 18 of 22 | pending | pending | Stage 2 pending |
+| exchange\_traded\_funds\_18 | 0/3 (6) | 3/3, 18 of 20 | 10/10 (8) | minus slot 1, 2, 3, step5: 10/10 each; minus slot 4: 6/6 (run stopped); minus slot 5 not run (16 each) | Not a certificate: the broad definition ask alone passes, so one legitimate answer suffices (single-answer leak, like solar\_panel\_1). Figures from the launch-2 terminal log; the shared output file was overwritten by two launches and is not used |
+| crypto\_exchange\_19 | 0/3 (6) | 3/3, 18 of 22 | 10/10 (10) | every ablation 10/10 (16 each) | Not a certificate: the two broad definition asks alone pass; no single answer is necessary (single-answer leak). `stage2_crypto.jsonl` |
 | mental\_health\_14 | 0/3 (6–7) | 0/3, 18–19 of 22 | — | — | Fail, wrong result 3/3 |
 
 Figures from `bird_interact_agent/outputs/reconstruct/`: `policy_v3_heldout_stage1.jsonl`, `policy_v3_heldout_rerun.jsonl`, `policy_v3_heldout_stage2_reverse.jsonl`, `rl1_frozen_reps10.jsonl`, `rl1_reps10.jsonl`, `policy_v3_heldout_stage1b.jsonl` and `policy_v3_heldout_stage1c.jsonl`. No generator failures in any of the 10-rep, stage 1b or stage 1c rows.
