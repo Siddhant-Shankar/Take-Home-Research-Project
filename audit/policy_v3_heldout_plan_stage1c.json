@@ -1,0 +1,66 @@
+{
+ "hulushows_14": {
+  "frozen_p10": [
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_c",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_c",
+    "question_id": "v3_step5",
+    "rep": 1
+   }
+  ]
+ },
+ "mental_health_14": {
+  "none": [],
+  "frozen_p10": [
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot1",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot2",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_b",
+    "question_id": "v3_slot3",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_c",
+    "question_id": "v3_slot4",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_c",
+    "question_id": "v3_slot5",
+    "rep": 1
+   },
+   {
+    "trial": "policy_v3_heldout_c",
+    "question_id": "v3_step5",
+    "rep": 1
+   }
+  ]
+ }
+}

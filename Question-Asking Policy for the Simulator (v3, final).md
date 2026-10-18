@@ -171,6 +171,8 @@ Seeded draw 20261017, one Query task per eligible database, dev tasks and their 
 
 Phase B asks for planets, etf and crypto, and the phase A asks for hulushows and mental\_health, were drafted after the batch addendum text above was final and are committed after it (`probes/policy_v3_heldout_phaseB.jsonl`). Derivation under the addendum: planets `v3_step5`, `v3_slot5`, `v3_slot6` (nulls skipped, decision 7; ask 7 unspent); etf `v3_step5`, `v3_slot4`, `v3_slot5` (sort skipped, single count); crypto `v3_step5`, `v3_slot4`, `v3_slot5` (sort skipped, single label; ask 7 unspent); hulushows and mental\_health slots 1–3 plus amb\_only broad asks, with asks 4 onward written after their rep-1 replies are read.
 
+Round 2 (`probes/policy_v3_heldout_round2.jsonl`, asks 4 onward, from rep-1 hooked replies only, encoder labels withheld): hulushows `v3_slot4`, `v3_step5` (nothing surfaced; table skipped because the replies name the tiernotices column, which exists only in promo\_info; sort skipped because the replies ask for a single maximum value; the second freed ask and both extras unspent, branch 3); mental\_health `v3_slot4` (anchor B), `v3_slot5` (anchor A), `v3_step5` (nothing surfaced; sort skipped, resolved in the rep-1 replies; extra 1 unspent, branch 3). The hulushows table skip reads "given in full" more strictly than the fake\_account\_2 precedent (sort stated outright); the task cannot be a certificate either way. No third round: a nested term surfacing in a round 2 reply gets no follow-up hook, the same batch limit as decision 5. The first-round question briefs (phase B for planets, etf, crypto) showed encoder labels and all three reps; no nested anchor came from them, and the round 2 briefs withheld labels, reps 2–3 and broad replies.
+
 No anchor matches a schema table or column name.
 
 Stress cases named in advance: #7 (class rank picks top fans over cohort analysis and milestones; if the label is one of those, Rule 2 step 1 needs an analysis-noun class), #1 (zero surface anchors; first use of step 6), #3 (surface count far below k; tests step 5), #10 (no AMB path). Observation from phase A, recorded but not acted on mid-run: crypto's label was the merged phrase significant arbitrage, so Rule 2 step 3 should also merge a degree adjective into the noun it modifies; both separate anchors were still labeled, so no disclosure was lost.
@@ -235,5 +237,6 @@ The label parser (prompt\_utils.py:232-243) takes whatever sits between `<s>` an
 
 - Empty label: 3 of 45 trial-5 turns (about 7%). The decoder still answered in 2 of those 3.
 - Unclosed label: 1 of 114 trial-4 labels. The whole encoder output, including reasoning that can quote gold SQL, is passed to the decoder as the label.
+- Markdown-wrapped label: 1 of 54 held-out round 1 turns (crypto\_exchange\_19) came back as `**labeled("significant arbitrage")**` and was passed through unchecked.
 
 This accounts for the empty-label disclosures in the control rows (fake columns 1/3, solar plant-match, solar one-value). It is a low-rate simulator bug, not a policy lever, and should be reported separately from the hook finding. The policy does not depend on it.
