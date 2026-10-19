@@ -347,6 +347,97 @@ def print_metrics(metrics: Dict[str, Any]) -> None:
     for reward, count in metrics['reward_distribution'].items():
         print(f"  {reward} points: {count} samples")
 
+# --- Defended user simulator (audit/defense.py), used only with --defense_cap --- #
+# One DefendedSimulator per (sample, phase), kept here rather than on SampleStatus so
+# save_progress (status.__dict__ -> JSON) is unaffected. The ledger therefore resets
+# per phase and on --resume.
+_DEFENSE_MODULE = None
+_DEFENDED_SIMS: Dict[Tuple[int, int], Any] = {}
+
+
+def _defense_module():
+    global _DEFENSE_MODULE
+    if _DEFENSE_MODULE is None:
+        sys.path.insert(0, os.path.join(os.path.dirname(project_root), "audit"))
+        import defense  # audit/defense.py
+        _DEFENSE_MODULE = defense
+    return _DEFENSE_MODULE
+
+
+def _defense_call(prompt: str, model: str):
+    # Same call as audit/sim_turns.py: one user message, temperature 0, max_tokens 6000.
+    from src.llm_utils.call_api_batch import call_api_model
+    _, content, usage = call_api_model([{"role": "user", "content": prompt}], model, max_tokens=6000)
+    return content, usage
+
+
+def _defended_simulator(status: SampleStatus, db_schema: str, args):
+    key = (status.idx, status.current_phase)
+    if key not in _DEFENDED_SIMS:
+        record = status.original_data
+        if status.current_phase == 1:
+            gold_record, snippets = record, None  # snippets read from the record's annotations
+        else:
+            # Phase 2: the stock decoder gets the follow-up SQL and no ambiguity JSON, so no part is annotated.
+            gold_record, snippets = {"sol_sql": record.get("follow_up", {}).get("sol_sql", "")}, []
+        model = args.user_model
+
+        def encoder(q):
+            raw, usage = _defense_call(build_user_encoder_prompt(q, status, db_schema), model)
+            return parse_encoder_response(raw or ""), raw, usage
+
+        def decoder(q, label):
+            return _defense_call(build_user_decoder_prompt(q, label, status, db_schema), model)
+
+        def llm(prompt):
+            return _defense_call(prompt, model)
+
+        _DEFENDED_SIMS[key] = _defense_module().DefendedSimulator(
+            gold_record, encoder, decoder, llm,
+            cap=args.defense_cap, splitter=args.defense_splitter, annotation_snippets=snippets)
+    return _DEFENDED_SIMS[key]
+
+
+def _defended_user_replies(statuses: List[SampleStatus], questions: Dict[int, str], args,
+                           data_path_base: str, turn: int) -> Dict[int, str]:
+    """Answers this turn's asks through the defended simulator instead of the batch encoder -> decoder.
+    Returns {status_idx: reply} and appends one trace row per ask to <output_path>.defense_turns.jsonl
+    (the rows hold gold-derived text)."""
+    schemas = {}
+    for status in statuses:  # load schemas sequentially, as the stock path does
+        db_name = status.original_data['selected_database']
+        load_db_data_if_needed(db_name, data_path_base)
+        schemas[status.idx] = _schema_cache.get(db_name, "Schema not available")
+
+    def one(status):
+        row = {"idx": status.idx, "instance_id": status.original_data.get("instance_id"),
+               "phase": status.current_phase, "agent_turn": turn, "cap": args.defense_cap,
+               "clarification_question": questions[status.idx]}
+        try:
+            r = _defended_simulator(status, schemas[status.idx], args).ask(questions[status.idx])
+        except Exception as e:  # never fall back to the stock decoder: answer with the defense's refusal line
+            logger.error(f"Sample {status.idx}: defended simulator failed: {e!r}")
+            row["error"] = repr(e)
+            return status.idx, _defense_module().NO_ANSWER_REPLY, row
+        status.last_encoder_action = r["label"]
+        row.update({k: r[k] for k in ("turn", "label", "answered", "reply", "draft", "clauses", "audit_mode",
+                                      "revealed_allowed", "revealed_privileged", "blocked", "blocked_text",
+                                      "ledger", "usage")})
+        return status.idx, r["reply"], row
+
+    replies, rows = {}, []
+    with ThreadPoolExecutor(max_workers=max(1, args.user_num_threads)) as pool:
+        for idx, reply, row in pool.map(one, statuses):
+            replies[idx] = reply
+            rows.append(row)
+    try:
+        with jsonlines.open(f"{args.output_path}.defense_turns.jsonl", mode='a') as writer:
+            writer.write_all(rows)
+    except Exception as e:
+        logger.error(f"Failed to write defense trace: {e}")
+    return replies
+
+
 def run_batch_evaluation(args):
     """
     Main function to run the batch evaluation.
@@ -664,6 +755,11 @@ def run_batch_evaluation(args):
                                 if status.idx not in processed_user_responses:
                                     processed_user_responses[status.idx] = f"Error reading vanilla user response file: {e}"
 
+                elif args.user_sim_mode == 'encoder_decoder' and args.defense_cap is not None:
+                    # --- Defended Encoder/Decoder Mode (audit/defense.py) --- #
+                    processed_user_responses.update(
+                        _defended_user_replies(valid_ask_statuses, questions, args, data_path_base, current_turn + 1))
+
                 elif args.user_sim_mode == 'encoder_decoder':
                     # --- Encoder/Decoder Mode --- #
                     # Step 1: Call Encoder
@@ -922,6 +1018,8 @@ def main():
     parser.add_argument('--log_file', type=str, help='Path to log file (default: batch_evaluation.log in current directory)')
     parser.add_argument('--user_sim_prompt_version', type=str, default='v2', choices=['v1', 'v2'], help='User simulator prompt version. v1: preliminary prompt used in our early experiments (used in our bird-interact-lite experiments results). v2 (recommended): more robust prompt for the experiment (used in our bird-interact-full experiments results). You cal also use v2 for bird-interact-lite experiments.')
     
+    parser.add_argument('--defense_cap', type=int, default=None, help='Route encoder_decoder asks through audit/defense.py with this many privileged parts allowed per sample and phase (0 = annotated facts only). Omit for the stock simulator.')
+    parser.add_argument('--defense_splitter', type=str, default='llm', choices=['llm', 'heuristic'], help='Clause splitter for --defense_cap (llm matches audit/sim_turns.py)')
     args = parser.parse_args()
 
     # Set up logging with the specified configuration
@@ -935,6 +1033,8 @@ def main():
     logger.warning(f"Processing {args.limit if args.limit else 'all'} samples starting from index {args.start_index} (actual index: {args.start_actual_index})")
     logger.warning(f"Max turns: {args.max_turns}, Threads: {args.num_threads}")
     logger.warning(f"User patience budget: {args.user_patience_budget}")
+    if args.defense_cap is not None:
+        logger.warning(f"Defended user simulator: cap {args.defense_cap}, splitter {args.defense_splitter}")
     logger.warning(f"Log level: {args.log_level}")
     if args.verbose:
         logger.debug("Verbose logging enabled - will show detailed API and module logs")
