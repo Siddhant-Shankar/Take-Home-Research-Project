@@ -1,0 +1,2926 @@
+{
+  "about": "Policy v3 held-out run. Rule-2 anchors fixed in the policy doc before any run. P=10 official. Phase A probes are prewritten. Phase B probes (tasks with nested terms expected) are written after reading phase A replies: anchor = nested term if one surfaced, else cycle surface anchors. Stage 1 = none + frozen on all tasks; stage 2 = amb_only + ablations only where frozen passed 3/3.",
+  "patience": 10,
+  "fixed_costs": {
+    "get_schema": 1,
+    "get_all_knowledge_definitions": 1,
+    "ask": 2,
+    "execute": 1,
+    "submit": 3
+  },
+  "tasks": {
+    "hulushows_14": {
+      "k": 4,
+      "budget": 24,
+      "asks": 8,
+      "nested_expected": 3,
+      "anchors": [
+        "'promo saturation ratio'"
+      ],
+      "probes": "probes/policy_v3_hulushows_14.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and what should happen for entries whose promo counts are zero or missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra2",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "amb_only": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad1",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and what should happen for entries whose promo counts are zero or missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra2",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and what should happen for entries whose promo counts are zero or missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra2",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and what should happen for entries whose promo counts are zero or missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra2",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra2",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot5": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and what should happen for entries whose promo counts are zero or missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra2",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot6": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and what should happen for entries whose promo counts are zero or missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra2",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_extra1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and what should happen for entries whose promo counts are zero or missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra2",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_extra2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and what should happen for entries whose promo counts are zero or missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'promo saturation ratio' be measured, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        }
+      }
+    },
+    "robot_fault_prediction_11": {
+      "k": 3,
+      "budget": 22,
+      "asks": 7,
+      "nested_expected": 0,
+      "anchors": [
+        "the 'failure rates'",
+        "'high reliability risk'",
+        "'high-wear' jobs"
+      ],
+      "probes": "probes/policy_v3_robot_fault_prediction_11.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "amb_only": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad3",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot5": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot6": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_extra1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        }
+      }
+    },
+    "planets_data_14": {
+      "k": 3,
+      "budget": 22,
+      "asks": 7,
+      "nested_expected": 2,
+      "anchors": [
+        "the 'type of light filter'"
+      ],
+      "probes": "probes/policy_v3_planets_data_14.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and what should happen for stars whose filter value is missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and which records should the counts come from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "amb_only": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad1",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and what should happen for stars whose filter value is missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and which records should the counts come from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and what should happen for stars whose filter value is missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and which records should the counts come from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and what should happen for stars whose filter value is missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and which records should the counts come from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and which records should the counts come from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot5": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and what should happen for stars whose filter value is missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot6": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and what should happen for stars whose filter value is missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and which records should the counts come from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_extra1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and what should happen for stars whose filter value is missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and which records should the counts come from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should the 'type of light filter' be determined, and how should the output be sorted?"
+            }
+          ]
+        }
+      }
+    },
+    "exchange_traded_funds_18": {
+      "k": 2,
+      "budget": 20,
+      "asks": 6,
+      "nested_expected": 1,
+      "anchors": [
+        "'value funds'"
+      ],
+      "probes": "probes/policy_v3_exchange_traded_funds_18.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'value funds' be determined, and what should happen for funds whose style or ratio fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'value funds' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'value funds' be determined, and how should the output be sorted?"
+            }
+          ]
+        },
+        "amb_only": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad1",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'value funds' be determined, and what should happen for funds whose style or ratio fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'value funds' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'value funds' be determined, and how should the output be sorted?"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'value funds' be determined, and what should happen for funds whose style or ratio fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'value funds' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'value funds' be determined, and how should the output be sorted?"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'value funds' be determined, and what should happen for funds whose style or ratio fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'value funds' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'value funds' be determined, and how should the output be sorted?"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'value funds' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'value funds' be determined, and how should the output be sorted?"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot5": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'value funds' be determined, and what should happen for funds whose style or ratio fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'value funds' be determined, and how should the output be sorted?"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot6": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'value funds' be determined, and what should happen for funds whose style or ratio fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should 'value funds' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            }
+          ]
+        }
+      }
+    },
+    "crypto_exchange_19": {
+      "k": 3,
+      "budget": 22,
+      "asks": 7,
+      "nested_expected": 1,
+      "anchors": [
+        "an 'arbitrage opportunity'",
+        "'significant'"
+      ],
+      "probes": "probes/policy_v3_crypto_exchange_19.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'significant' be determined, and what should happen for snapshots whose price fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should an 'arbitrage opportunity' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'significant' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "amb_only": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad2",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'significant' be determined, and what should happen for snapshots whose price fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should an 'arbitrage opportunity' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'significant' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'significant' be determined, and what should happen for snapshots whose price fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should an 'arbitrage opportunity' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'significant' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'significant' be determined, and what should happen for snapshots whose price fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should an 'arbitrage opportunity' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'significant' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should an 'arbitrage opportunity' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'significant' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot5": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'significant' be determined, and what should happen for snapshots whose price fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'significant' be determined, and how should the output be sorted?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_slot6": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'significant' be determined, and what should happen for snapshots whose price fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should an 'arbitrage opportunity' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_extra1",
+              "rep": 1,
+              "phase_b_pending": true,
+              "rule": "broad ask for an unanchored surface term, else nested-term hook, else leave unspent"
+            }
+          ]
+        },
+        "frozen_minus_v3_extra1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "nulls",
+              "draft_question": "How exactly should 'significant' be determined, and what should happen for snapshots whose price fields are missing?"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "table",
+              "draft_question": "How exactly should an 'arbitrage opportunity' be determined, and which records should it be computed from? [adjust to table names after get_schema]"
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1,
+              "phase_b_pending": true,
+              "slot": "order",
+              "draft_question": "How exactly should 'significant' be determined, and how should the output be sorted?"
+            }
+          ]
+        }
+      }
+    },
+    "insider_trading_5": {
+      "k": 2,
+      "budget": 20,
+      "asks": 6,
+      "nested_expected": 0,
+      "anchors": [
+        "the 'uniqueness' score",
+        "'high-risk'"
+      ],
+      "probes": "probes/policy_v3_insider_trading_5.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "amb_only": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad2",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot5": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot6": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        }
+      }
+    },
+    "virtual_idol_9": {
+      "k": 1,
+      "budget": 18,
+      "asks": 5,
+      "nested_expected": 0,
+      "anchors": [
+        "'top fans'"
+      ],
+      "probes": "probes/policy_v3_virtual_idol_9.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "amb_only": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad1",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot5": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            }
+          ]
+        }
+      }
+    },
+    "disaster_relief_11": {
+      "k": 1,
+      "budget": 18,
+      "asks": 5,
+      "nested_expected": 0,
+      "anchors": [
+        "'overall efficiency'"
+      ],
+      "probes": "probes/policy_v3_disaster_relief_11.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "amb_only": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad1",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot5": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            }
+          ]
+        }
+      }
+    },
+    "reverse_logistics_1": {
+      "k": 2,
+      "budget": 20,
+      "asks": 6,
+      "nested_expected": 0,
+      "anchors": [
+        "the 'overall handling cost'",
+        "the 'major fee components'"
+      ],
+      "probes": "probes/policy_v3_reverse_logistics_1.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "amb_only": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_broad2",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot5": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot6",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot6": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot5",
+              "rep": 1
+            }
+          ]
+        }
+      }
+    },
+    "cold_chain_pharma_compliance_20": {
+      "k": 0,
+      "budget": 16,
+      "asks": 4,
+      "nested_expected": 0,
+      "anchors": [],
+      "probes": "probes/policy_v3_cold_chain_pharma_compliance_20.jsonl",
+      "turns": "bird_interact_agent/outputs/policy_v3_heldout/turns.jsonl",
+      "stop_rule": "2*asks + executes <= budget - 5",
+      "note": "no amb_only: k=0 has no AMB path",
+      "conditions": {
+        "none": {
+          "stage": 1,
+          "answers": []
+        },
+        "frozen_p10": {
+          "stage": 1,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot1": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot2": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot3": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot4",
+              "rep": 1
+            }
+          ]
+        },
+        "frozen_minus_v3_slot4": {
+          "stage": 2,
+          "answers": [
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot1",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot2",
+              "rep": 1
+            },
+            {
+              "trial": "policy_v3_heldout",
+              "question_id": "v3_slot3",
+              "rep": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "certificate_rule": "frozen_p10 3/3 within budget AND amb_only < 3/3 AND at least one frozen_minus_* < 3/3",
+  "alternates_in_order": [
+    "mental_health_14",
+    "cross_border_1",
+    "households_7",
+    "archeology_scan_10",
+    "cybermarket_pattern_2"
+  ]
+}
